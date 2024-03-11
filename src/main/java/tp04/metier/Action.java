@@ -28,6 +28,11 @@ public abstract class Action {
         this.libelle = libelle;
     }
 
+    /**
+     *
+     * @param j
+     * @return
+     */
     public abstract float valeur(Jour j);
 
     @Override
