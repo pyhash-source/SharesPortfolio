@@ -73,6 +73,5 @@ public class JourTest {
         final String currentMessage = assertThrowsExactly.getMessage();
         Assertions.assertEquals(expectedMessage, currentMessage,
                 "Expected error message");
-
     }
 }

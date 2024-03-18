@@ -3,6 +3,7 @@ Jour
 @version 1 18/03/2024
 @copyright Groupe1
 */
+
 package metier;
 
 /**
@@ -62,10 +63,8 @@ public class Jour {
         hash = valeur * hash + this.annee;
         hash = valeur * hash + this.mois;
         hash = valeur * hash + this.jour;
-        return hash;
-    }
 
-    @Override
+
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
