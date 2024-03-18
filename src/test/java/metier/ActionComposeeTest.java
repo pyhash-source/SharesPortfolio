@@ -28,47 +28,74 @@ import metier.ActionComposee.DoubleActionException;
  */
 
 public class ActionComposeeTest {
-
+    /**
+     * Travail SetUp
+     * Libéllé de ACTION_SIMPLE_1.
+     */
     private static final String LIB_ACTION_SIMPLE_1 = "ActionSimple1";
-    private static final String LIB_ACTION_SIMPLE_2 = "ActionSimple2";
+     /**
+     * Travail SetUp
+     * Construre ActionSimple ACTION_SIMPLE_1.
+     */
+    private static final ActionSimple ACTION_SIMPLE_1 =
+        new ActionSimple(LIB_ACTION_SIMPLE_1);
+    /**
+     * Travail SetUp
+     * Libéllé de ACTION_COMPOSEE_1.
+     */
     private static final String LIB_ACTION_COMPOSEE_1 = "ActionComposee1";
-    private static final String LIB_ACTION_COMPOSEE_2 = "ActionSimple2";
-    
-    private static final ActionSimple acS1 = new ActionSimple(LIB_ACTION_SIMPLE_1);
-    private static final ActionSimple acS2 = new ActionSimple(LIB_ACTION_SIMPLE_2);
-    private static final ActionSimple actionSimpleNull = null;
 
-    public ActionComposeeTest() {
-    }
+    /**
+     * Travail SetUp
+     * Une ActionComposee vide.
+     */
+    private static final ActionComposee ACTION_COMPOSEE_1=new ActionComposee(LIB_ACTION_COMPOSEE_1);
+    private static final String LIB_ACTION_COMPOSEE_2 = "ActionComposee2";
+    /**
+     * Travail SetUp
+     * Une ActionComposee vide.
+     */
+    private static final ActionComposee ACTION_COMPOSEE_2 =
+            new ActionComposee(LIB_ACTION_COMPOSEE_2);
+    /**
+     * Travail SetUp
+     * Une ActionSimple null.
+     */
+    private static final ActionSimple ACTION_SIMPLR_NULL = null;
 
-    @Test
-    protected void testExistanceDeActionSimpleAdded() throws DoubleActionException {    
-        final ActionComposee acC1=new ActionComposee(LIB_ACTION_COMPOSEE_1);
-        acC1.enrgComposition(acS1, (float)0.90);
+    /**
+     * Test si une ActionSimple est existé
+     * lors de les ajoutée dans une ActionComposée.
+     */
+    @Test    
+    final void testExistanceDeActionSimpleAdded()throws DoubleActionException {
+        ACTION_COMPOSEE_1.enrgComposition(ACTION_SIMPLE_1, (float)0.90);
         final String expectedMessage = "ActionSimple is null";
-        NullPointerException assertThrowsExactly = Assertions.assertThrowsExactly(NullPointerException.class, () -> {
-            acC1.enrgComposition(null, (float)0.1);
-        },"ActionSimple is null");
+        NullPointerException assertThrowsExactly = Assertions
+                .assertThrowsExactly(NullPointerException.class, () -> {
+            ACTION_COMPOSEE_1.enrgComposition(ACTION_SIMPLR_NULL, (float)0.1);
+        }, "ActionSimple is null");
         final String currentMessage = assertThrowsExactly.getMessage();
-        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+        Assertions.assertEquals(
+                expectedMessage, currentMessage, "Expected error message");
     }
     
     /**
      * @author han
-     * Test: Si deux actions identiques sont ajoutées, une exception personnalisée est levée.
+     * Test: Si deux actions identiques sont ajoutées,
+     * une exception personnalisée est levée.
     */
     @Test
     protected void testActionsAddedNotSame() throws DoubleActionException {
         // Création de cas de test
-        final ActionComposee acC2 = new ActionComposee(LIB_ACTION_COMPOSEE_2);
-        acC2.enrgComposition(acS1, 0.5f);
+        ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, 0.5f);
         
         // Si une erreur est générée, vérifiez que l'erreur est la même que celle attendue.
         // message attendu
         final String expectedMessage = "Cette action est existe.";
-        
-        DoubleActionException assertThrowsExactly = Assertions.assertThrowsExactly(DoubleActionException.class, () -> {
-            acC2.enrgComposition(acS1, 0.5f);
+        DoubleActionException assertThrowsExactly = Assertions
+                .assertThrowsExactly(DoubleActionException.class, () -> {
+            ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, 0.5f);
         },"Cette action est existe.");
         
         // message d'erreur
