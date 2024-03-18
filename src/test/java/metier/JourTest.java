@@ -13,29 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package tp04.metier;
+package metier;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author David Navarre &lt;David.Navarre at irit.fr&gt;
+ * @author David Navarre &lt;David.Navarre at irit.fr&gt & R&P;
  */
 public class JourTest {
-
+    /** jour valide par defaut.*/
     private static final int DEFAULT_DAY = 1;
+    /** mois valide par defaut.*/
+    private static final int DEFAULT_MONTH = 1;
+    /** annee valide par defaut.*/
     private static final int DEFAULT_YEAR = 1;
+    /** jour invalide par defaut.*/
     private static final int INCORRECT_DAY = 0;
+    /** mois invalide par defaut.*/
+    private static final int INCORRECT_MONTH = 0;
+    /** annee invalide par defaut.*/
     private static final int INCORRECT_YEAR = 0;
 
+    /**
+     * Constructeur par defaut.
+     */
     public JourTest() {
     }
 
+    /**
+     * Methode pour tester si les parametre du constructeur sont valides
+     * et permettent la creation de l'objet.
+     */
     @Test
     protected void testConstructorParametersAreCorrectSuccess() {
         //Arrange
-        final Jour jour = new Jour(DEFAULT_YEAR, DEFAULT_DAY);
+        final Jour jour = new Jour(DEFAULT_YEAR,DEFAULT_MONTH, DEFAULT_DAY );
 
         //Action
         final String expectedToString = "Jour{" + "annee=" + DEFAULT_YEAR + ", noJour=" + DEFAULT_DAY + '}';

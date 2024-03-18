@@ -1,21 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tp04.metier;
+/* 
+ActionSimple
+@version 1 18/03/2024
+@copyright Groupe1
+*/
+package metier;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  *
- * @author somebody
+ * @author R&P
  */
 public class ActionSimple extends Action {
 
     // attribut lien
-    private Map<Jour, Cours> mapCours;
+    private Map<Jour, Cours> mapCours; 
+    // attribut date du jour
+    private Date date = new Date();
 
     // constructeur
     public ActionSimple(String libelle) {
@@ -27,7 +30,10 @@ public class ActionSimple extends Action {
 
     // enrg possible si pas de cours pour ce jour
     public void enrgCours(Jour j, float v) {
-        if (this.mapCours.containsKey(j) == false) {
+        long milliseconds = System.currentTimeMillis();
+        date.setTime(milliseconds);
+        date.
+         if (this.mapCours.containsKey(j) == false && v > 0 ) {
             this.mapCours.put(j, new Cours(j, v));
         }
     }
