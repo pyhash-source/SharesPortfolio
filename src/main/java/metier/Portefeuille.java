@@ -28,7 +28,10 @@ public class Portefeuille {
      * liste des actions possédées.
      */
     private HashMap<Action, Integer> actions;
-
+    /**
+     * solde du compte espèce.
+     */
+    private double soldeEspece;
     /**
      * constructeur permettant de creer un portefeuille.
      * @param clientPortefeuille client du portefeuille
@@ -36,6 +39,7 @@ public class Portefeuille {
     public Portefeuille(final Client clientPortefeuille) {
         this.client = clientPortefeuille;
         this.actions = new HashMap();
+        this.soldeEspece = 0;
     }
     /**
      * retourne le client.
@@ -51,7 +55,35 @@ public class Portefeuille {
     public final HashMap<Action, Integer> getActions() {
         return actions;
     }
-
+    /**
+     * retourne la valeur actuelle du compte espèces.
+     * @return solde
+    */
+    public final double getSoldeEspece() {
+        return soldeEspece;
+    }
+    /**
+     * crédite le solde espèces du portefeuille.
+     * @param credit valeur à ajouter au solde espèces
+     * @throws Exception si une valeur négative ou nulle est ajoutée au solde
+    */
+    public final void provisionnerSoldeEspeces(final double credit)
+            throws Exception {
+        if (credit > 0) {
+            this.soldeEspece += credit;
+        }
+    }
+    /**
+     * retire de l'argent du solde espèces.
+     * @param retrait valeur à retirer du solde espèces
+     * @throws Exception si une valeur positive ou nulle est retirée du solde
+    */
+    public final void retirerSoldeEspeces(final double retrait)
+            throws Exception {
+        if (retrait <= 0 && (this.soldeEspece - retrait >= 0)) {
+            this.soldeEspece -= retrait;
+        }
+    }
 
     @Override
     public final int hashCode() {
