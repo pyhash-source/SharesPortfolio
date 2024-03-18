@@ -13,9 +13,13 @@ import org.junit.jupiter.api.Test;
  */
 class PortefeuilleTest {
     /**
-     * client correct.
+     * client.
     */
     private static final Client CLIENT = new Client("Cardona", "Jean");
+    /**
+     * deuxieme client.
+    */
+    private static final Client DEUXIEME_CLIENT = new Client("Cueille", "Elisa");
     /**
      * test le constructeur, le constructeur doit fonctionner.
     */
@@ -125,5 +129,67 @@ class PortefeuilleTest {
         //Assert
         Assertions
                 .assertInstanceOf(Integer.class, hashCode, "test du hashcode");
+    }
+    /**
+     * test du equals self.
+    */
+    @Test
+    final void testDuEqualsSelf() {
+        //Arrange
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        //Assert
+        Assertions
+                .assertTrue(portefeuille.equals(portefeuille), "test du equals self");
+    }
+    /**
+     * test du equals null.
+    */
+    @Test
+    final void testDuEqualsNull() {
+        //Arrange
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        final Object object = null;
+        //Assert
+        Assertions
+                .assertFalse(portefeuille.equals(object), "test du equals null");
+    }
+    /**
+     * test du equals different classe.
+    */
+    @Test
+    final void testDuEqualsDifferentClass() {
+        //Arrange
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        Object obj = new Object();
+        //Assert
+        Assertions
+                .assertFalse(portefeuille.equals(obj),
+                        "test du equals autre classe");
+    }
+    /**
+     * test du equals differents portefeuille.
+    */
+    @Test
+    final void testDuEqualsDifferentClient() {
+        //Arrange
+        final Portefeuille portefeuille1 = new Portefeuille(CLIENT);
+        final Portefeuille portefeuille2 = new Portefeuille(DEUXIEME_CLIENT);
+        //Assert
+        Assertions
+                .assertFalse(portefeuille1.equals(portefeuille2),
+                        "test du equals autre classe");
+    }
+    /**
+     * test du equals portefeuille vraiment le même.
+    */
+    @Test
+    final void testDuEqualsMemeClient() {
+        //Arrange
+        final Portefeuille portefeuille1 = new Portefeuille(CLIENT);
+        final Portefeuille portefeuille2 = new Portefeuille(CLIENT);
+        //Assert
+        Assertions
+                .assertTrue(portefeuille1.equals(portefeuille2),
+                        "test du equals même portefeuille");
     }
 }
