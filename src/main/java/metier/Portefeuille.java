@@ -6,6 +6,7 @@
 package metier;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -15,11 +16,11 @@ public class Portefeuille {
     /**
      * constante fixe pour le calcul du hashcode.
     */
-    private final int valeur = 3;
+    private static final int VALEUR = 3;
     /**
      * constante multiplicatrice pour le calcul du hashcode.
     */
-    private final int multiplicateur = 42;
+    private static final int MULTIPLICATEUR = 42;
     /**
      * client a qui appartient le portefeuiile.
      */
@@ -38,7 +39,7 @@ public class Portefeuille {
     */
     public Portefeuille(final Client clientPortefeuille) {
         this.client = clientPortefeuille;
-        this.actions = new HashMap();
+        this.actions = new HashMap<>();
         this.soldeEspece = 0;
     }
     /**
@@ -52,7 +53,7 @@ public class Portefeuille {
      * retourne les actions.
      * @return actions
     */
-    public final HashMap<Action, Integer> getActions() {
+    public final Map<Action, Integer> getActions() {
         return actions;
     }
     /**
@@ -87,9 +88,9 @@ public class Portefeuille {
 
     @Override
     public final int hashCode() {
-        int hash = this.valeur;
-        hash = this.multiplicateur * hash + Objects.hashCode(this.client);
-        hash = this.multiplicateur * hash + Objects.hashCode(this.actions);
+        int hash = VALEUR;
+        hash = VALEUR * hash + Objects.hashCode(this.client);
+        hash = VALEUR * hash + Objects.hashCode(this.actions);
         return hash;
     }
 
