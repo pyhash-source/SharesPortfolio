@@ -1,80 +1,81 @@
 /*
  * Portefeuille
- * Version 1
- * 18/03/2024
+ * @version 1 18/03/2024
+ * @copyright Groupe1
  */
 package metier;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 /**
- *
- * @author somebody
+ * @author elisajean
  */
 public class Portefeuille {
+    /**
+     * constante fixe pour le calcul du hashcode.
+    */
+    private final int valeur = 3;
+    /**
+     * constante multiplicatrice pour le calcul du hashcode.
+    */
+    private final int multiplicateur = 42;
+    /**
+     * client a qui appartient le portefeuiile.
+     */
+    private final Client client;
+    /**
+     * liste des actions possédées.
+     */
+    private HashMap<Action, Integer> actions;
 
-    Map<Action, LignePortefeuille> mapLignes;
-
-    private class LignePortefeuille {
-
-        private Action action;
-
-        private int qte;
-
-        public int getQte() {
-            return qte;
-        }
-
-        public void setQte(int qte) {
-            this.qte = qte;
-        }
-
-        public Action getAction() {
-            return this.action;
-        }
-
-        public LignePortefeuille(Action action, int qte) {
-            this.action = action;
-            this.qte = qte;
-        }
-
-        public String toString() {
-            return Integer.toString(qte);
-        }
+    /**
+     * constructeur permettant de creer un portefeuille.
+     * @param clientPortefeuille client du portefeuille
+    */
+    public Portefeuille(final Client clientPortefeuille) {
+        this.client = clientPortefeuille;
+        this.actions = new HashMap();
+    }
+    /**
+     * retourne le client.
+     * @return client
+    */
+    public final Client getClient() {
+        return client;
+    }
+    /**
+     * retourne les actions.
+     * @return actions
+    */
+    public final HashMap<Action, Integer> getActions() {
+        return actions;
     }
 
-    public Portefeuille() {
-        this.mapLignes = new HashMap();
+
+    @Override
+    public final int hashCode() {
+        int hash = this.valeur;
+        hash = this.multiplicateur * hash + Objects.hashCode(this.client);
+        hash = this.multiplicateur * hash + Objects.hashCode(this.actions);
+        return hash;
     }
 
-    public void acheter(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == false) {
-            this.mapLignes.put(a, new LignePortefeuille(a, q));
-        } else {
-            this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() + q);
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
         }
-    }
-
-    public void vendre(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == true) {
-            if (this.mapLignes.get(a).getQte() > q) {
-                this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() - q);
-            } else if (this.mapLignes.get(a).getQte() == q) {
-                this.mapLignes.remove(a);
-            }
+        if (obj == null) {
+            return false;
         }
-    }
-
-    public String toString() {
-        return this.mapLignes.toString();
-    }
-
-    public float valeur(Jour j) {
-        float total = 0;
-        for (LignePortefeuille lp : this.mapLignes.values()) {
-            total = total + (lp.getQte() * lp.getAction().valeur(j));
+        if (getClass() != obj.getClass()) {
+            return false;
         }
-        return total;
+        final Portefeuille other = (Portefeuille) obj;
+        if (!Objects.equals(this.client, other.client)) {
+            return false;
+        }
+        return Objects.equals(this.actions, other.actions);
     }
 }
