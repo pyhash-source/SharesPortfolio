@@ -16,8 +16,9 @@ import java.util.Objects;
 public class ActionComposee extends Action {
 
     // attribut lien
-    Map<ActionSimple, Float> mapPanier;
-
+    private Map<ActionSimple, Float> mapPanier;
+    private boolean isFinish = false;
+    
     public ActionComposee(String libelle) {
         super(libelle);
         this.mapPanier = new HashMap();
@@ -31,19 +32,25 @@ public class ActionComposee extends Action {
         if (this.mapPanier.containsKey(as)) {
             throw new DoubleActionException("Cette action est existe.");
         }
-        // verification : somme de pourcentage
+         // verification : somme de pourcentage
         // somme de pourcentage
         float somme = 0f;
         for (ActionSimple actionsimple : this.mapPanier.keySet()) {
             float pourcentageActionSimple = this.mapPanier.get(actionsimple);
             somme += pourcentageActionSimple;
         }
-        // verfication: somme + pourcentage > 1 ？
-        if ((somme + pourcentage) > 1) {
-            throw new PourcentageException("le somme du pourcentage est > 1");
-        }      
-
-        this.mapPanier.put(as, pourcentage);
+        if (somme < 1) {
+             // verfication: somme + pourcentage > 1 ？
+            if ((somme + pourcentage) > 1) {
+                throw new PourcentageException(
+                        "le somme du pourcentage est > 1");
+            } else if ((somme + pourcentage) == 1) {
+                this.mapPanier.put(as, pourcentage);
+                this.isFinish = true;           
+            } else {
+               this.mapPanier.put(as, pourcentage);      
+            }
+        }
     }
 
     @Override
@@ -79,29 +86,28 @@ public class ActionComposee extends Action {
         final ActionComposee other = (ActionComposee) obj;
         return Objects.equals(this.mapPanier, other.mapPanier);
     }
-    
     /**
-     * Créer une classe interne d'erreur pour l'insertion en double d'une action
-     * @throws DoubleActionException si action est existe
+     * Créer la classe interne d'erreur pour l'insertion en double d'une action.
+     * @throws DoubleActionException si action est existe.
      */
     class DoubleActionException extends Exception {
         /**
-         * Constucteur d'exception
-         * @param message le message d'erreur
+         * Constucteur d'exception.
+         * @param message le message d'erreur.
          */
         DoubleActionException(final String message) {
         super(message);
         }
     }
     /**
-     * Créer une classe interne d'erreur pour verifier la somme d'action
+     * Créer une classe interne d'erreur pour verifier la somme d'action.
      * @author han
-     * @throws PourcentageException si la somme du pourcentage > 1
+     * @throws PourcentageException si la somme du pourcentage > 1.
      */
     class PourcentageException extends Exception {
         /**
-         * Constructeur d'exception
-         * @param message le message d'erreur
+         * Constructeur d'exception.
+         * @param message le message d'erreur.
          */
         PourcentageException(final String message) {
         super(message);

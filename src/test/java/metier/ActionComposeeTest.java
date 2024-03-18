@@ -35,6 +35,12 @@ public class ActionComposeeTest {
         new ActionSimple("ActionSimple1");
     /**
      * Travail SetUp
+     * Construre ActionSimple ACTION_SIMPLE_1.
+     */
+    private static final ActionSimple ACTION_SIMPLE_2 =
+        new ActionSimple("ActionSimple2");
+    /**
+     * Travail SetUp
      * Une ActionComposee vide.
      */
     private static final ActionComposee ACTION_COMPOSEE_1 =
@@ -72,7 +78,8 @@ public class ActionComposeeTest {
      * lors de les ajoutée dans une ActionComposée.
      */
     @Test
-    final void testExistanceDeActionSimpleAdded()throws DoubleActionException {
+    final void testExistanceDeActionSimpleAdded()
+            throws DoubleActionException, PourcentageException {
         ACTION_COMPOSEE_1.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_90);
         final String expectedMessage = "ActionSimple is null";
         NullPointerException assertThrowsExactly = Assertions
@@ -90,7 +97,8 @@ public class ActionComposeeTest {
      * une exception personnalisée est levée.
     */
     @Test
-    final void testActionsAddedNotSame() throws DoubleActionException {
+    final void testActionsAddedNotSame()
+            throws DoubleActionException, PourcentageException{
         // Création de cas de test
         ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
         // Si une erreur est générée, vérifiez
@@ -109,10 +117,24 @@ public class ActionComposeeTest {
     }
     /**
      * Tester la somme des pourcentages est de 100%.
+     * @throws DoubleActionException
+     * @throws PourcentageException
      */
     @Test
     protected void testSommePourcentage()
         throws DoubleActionException, PourcentageException {
-        
-    } 
+        // Création de cas de test
+        ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
+        // Si une erreur est générée, vérifiez que l'erreur est la même que celle attendue.
+        // message attendu
+        final String expectedMessage = "le somme du pourcentage est > 1";
+        PourcentageException assertThrowsExactly = Assertions
+                .assertThrowsExactly(PourcentageException.class, () -> {
+            ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_90);
+        },"le somme du pourcentage est > 1");
+        // message d'erreur
+        final String currentMessage = assertThrowsExactly.getMessage();
+        // verifier si ils sont même
+        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+    }
 }
