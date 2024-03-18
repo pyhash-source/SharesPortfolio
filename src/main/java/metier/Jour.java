@@ -54,4 +54,37 @@ public class Jour {
         this.mois = month;
         this.jour = day;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.annee;
+        hash = 97 * hash + this.mois;
+        hash = 97 * hash + this.jour;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Jour other = (Jour) obj;
+        if (this.annee != other.annee) {
+            return false;
+        }
+        if (this.mois != other.mois) {
+            return false;
+        }
+        return this.jour == other.jour;
+    }
+    
+    
+    
 }
