@@ -5,6 +5,7 @@
  */
 package metier;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -87,7 +88,13 @@ public class Portefeuille {
         }
         return false;
     }
-
+    public final boolean acheterDesActions(final Action action
+            , final int nombre){
+        Date dateJour = new Date();
+        
+        
+        return false;
+    }
     /**
      * retourne l'hashcode du portefeuille.
      * @return hashcode du portefeuille
