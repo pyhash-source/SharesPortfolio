@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package metier;
 
 import java.util.HashMap;
@@ -14,7 +10,7 @@ import java.util.Map;
  */
 public class ActionSimple extends Action {
 
-    // attribut lien
+    /** attribut lien.*/
     private Map<Jour, Cours> mapCours;
 
     // constructeur

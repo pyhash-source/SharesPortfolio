@@ -20,6 +20,7 @@ package metier;
 //import metier.ActionComposee;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import metier.ActionComposee.DoubleActionException;
 
 /**
  *
@@ -31,19 +32,17 @@ public class ActionComposeeTest {
     private static final String LIB_ACTION_SIMPLE_1 = "ActionSimple1";
     private static final String LIB_ACTION_SIMPLE_2 = "ActionSimple2";
     private static final String LIB_ACTION_COMPOSEE_1 = "ActionComposee1";
-    //private static final String LIB_ACTION_SIMPLE_2 = "ActionSimple2";
+    private static final String LIB_ACTION_COMPOSEE_2 = "ActionSimple2";
     
     private static final ActionSimple acS1 = new ActionSimple(LIB_ACTION_SIMPLE_1);
-    //private static final ActionSimple acS2 = new ActionSimple(LIB_ACTION_SIMPLE_2);
+    private static final ActionSimple acS2 = new ActionSimple(LIB_ACTION_SIMPLE_2);
     private static final ActionSimple actionSimpleNull = null;
 
     public ActionComposeeTest() {
     }
 
     @Test
-    protected void testExistanceDeActionSimpleAdded() {
-        
-       
+    protected void testExistanceDeActionSimpleAdded() throws DoubleActionException {    
         final ActionComposee acC1=new ActionComposee(LIB_ACTION_COMPOSEE_1);
         acC1.enrgComposition(acS1, (float)0.90);
         final String expectedMessage = "ActionSimple is null";
@@ -53,23 +52,41 @@ public class ActionComposeeTest {
         final String currentMessage = assertThrowsExactly.getMessage();
         Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
     }
-
+    
+    /**
+     * @author han
+     * Test: Si deux actions identiques sont ajoutées, une exception personnalisée est levée.
+    */
     @Test
-    protected void testActionsAddedNotSame() {
+    protected void testActionsAddedNotSame() throws DoubleActionException {
+        // Création de cas de test
+        final ActionComposee acC2 = new ActionComposee(LIB_ACTION_COMPOSEE_2);
+        acC2.enrgComposition(acS1, 0.5f);
         
-       
-       
+        // Si une erreur est générée, vérifiez que l'erreur est la même que celle attendue.
+        // message attendu
+        final String expectedMessage = "Cette action est existe.";
+        
+        DoubleActionException assertThrowsExactly = Assertions.assertThrowsExactly(DoubleActionException.class, () -> {
+            acC2.enrgComposition(acS1, 0.5f);
+        },"Cette action est existe.");
+        
+        // message d'erreur
+        final String currentMessage = assertThrowsExactly.getMessage();
+        
+        // verifier si ils sont même
+        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+      
     }
-    //@Test
-//    protected void testConstructorDayIncorrectShouldFail() {
-//        //Arrange
-//        final String expectedMessage = "0 mIllegalArgumentException assertThrowsExactly =ust not be used as a valid Day";
-//        //Action and asserts
-//        IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
-//            new Jour(DEFAULT_YEAR, INCORRECT_DAY);
-//        }, "0 must not be used as a valid Day");
-//        final String currentMessage = assertThrowsExactly.getMessage();
-//        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
-//
-//    }
+    
+    
+    /**
+     * Tester la somme des pourcentages est de 100%
+     */
+    @Test
+    protected void testSommePourcentage(){
+        
+    }
+        
+
 }

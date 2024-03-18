@@ -7,6 +7,7 @@ package metier;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *
@@ -22,11 +23,18 @@ public class ActionComposee extends Action {
         this.mapPanier = new HashMap();
     }
 
-    public void enrgComposition(ActionSimple as, float pourcentage) {
+    public void enrgComposition(ActionSimple as, float pourcentage) throws DoubleActionException {
         if (as == null){
             throw new NullPointerException("ActionSimple is null");
         }
-        this.mapPanier.put(as, pourcentage);
+        
+        if (this.mapPanier.containsKey(as)){
+            throw new DoubleActionException("Cette action est existe.");
+            
+        } else {
+            
+            this.mapPanier.put(as, pourcentage);
+        }
     }
 
     @Override
@@ -41,4 +49,36 @@ public class ActionComposee extends Action {
         return valeur;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.mapPanier);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ActionComposee other = (ActionComposee) obj;
+        return Objects.equals(this.mapPanier, other.mapPanier);
+    }
+    
+    /**
+     * Créer une classe interne d'erreur pour l'insertion en double d'une action
+     */
+    class DoubleActionException extends Exception{
+        public DoubleActionException(String message) {
+        super(message);
+        }
+    }
+
 }
+
