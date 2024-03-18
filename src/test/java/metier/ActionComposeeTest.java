@@ -21,6 +21,7 @@ package metier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import metier.ActionComposee.DoubleActionException;
+import metier.ActionComposee.PourcentageException;
 
 /**
  *
@@ -67,8 +68,9 @@ public class ActionComposeeTest {
      * Test si une ActionSimple est existé
      * lors de les ajoutée dans une ActionComposée.
      */
-    @Test    
-    final void testExistanceDeActionSimpleAdded()throws DoubleActionException {
+    @Test
+    final void testExistanceDeActionSimpleAdded()
+            throws DoubleActionException, PourcentageException {
         ACTION_COMPOSEE_1.enrgComposition(ACTION_SIMPLE_1, (float)0.90);
         final String expectedMessage = "ActionSimple is null";
         NullPointerException assertThrowsExactly = Assertions
@@ -79,14 +81,14 @@ public class ActionComposeeTest {
         Assertions.assertEquals(
                 expectedMessage, currentMessage, "Expected error message");
     }
-    
     /**
      * @author han
      * Test: Si deux actions identiques sont ajoutées,
      * une exception personnalisée est levée.
     */
     @Test
-    protected void testActionsAddedNotSame() throws DoubleActionException {
+    protected void testActionsAddedNotSame()
+            throws DoubleActionException, PourcentageException {
         // Création de cas de test
         ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, 0.5f);
         
@@ -111,7 +113,8 @@ public class ActionComposeeTest {
      * Tester la somme des pourcentages est de 100%
      */
     @Test
-    protected void testSommePourcentage(){
+    protected void testSommePourcentage()
+        throws DoubleActionException, PourcentageException {
         
     }
         

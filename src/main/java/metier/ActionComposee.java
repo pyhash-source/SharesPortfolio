@@ -23,18 +23,27 @@ public class ActionComposee extends Action {
         this.mapPanier = new HashMap();
     }
 
-    public void enrgComposition(ActionSimple as, float pourcentage) throws DoubleActionException {
-        if (as == null){
+    public void enrgComposition(ActionSimple as, float pourcentage)
+            throws DoubleActionException, PourcentageException {
+        if (as == null) {
             throw new NullPointerException("ActionSimple is null");
         }
-        
-        if (this.mapPanier.containsKey(as)){
+        if (this.mapPanier.containsKey(as)) {
             throw new DoubleActionException("Cette action est existe.");
-            
-        } else {
-            
-            this.mapPanier.put(as, pourcentage);
         }
+        // verification : somme de pourcentage
+        // somme de pourcentage
+        float somme = 0f;
+        for (ActionSimple actionsimple : this.mapPanier.keySet()) {
+            float pourcentageActionSimple = this.mapPanier.get(actionsimple);
+            somme += pourcentageActionSimple;
+        }
+        // verfication: somme + pourcentage > 1 ？
+        if ((somme + pourcentage) > 1) {
+            throw new PourcentageException("le somme du pourcentage est > 1");
+        }      
+
+        this.mapPanier.put(as, pourcentage);
     }
 
     @Override
@@ -73,9 +82,28 @@ public class ActionComposee extends Action {
     
     /**
      * Créer une classe interne d'erreur pour l'insertion en double d'une action
+     * @throws DoubleActionException si action est existe
      */
-    class DoubleActionException extends Exception{
-        public DoubleActionException(String message) {
+    class DoubleActionException extends Exception {
+        /**
+         * Constucteur d'exception
+         * @param message le message d'erreur
+         */
+        DoubleActionException(final String message) {
+        super(message);
+        }
+    }
+    /**
+     * Créer une classe interne d'erreur pour verifier la somme d'action
+     * @author han
+     * @throws PourcentageException si la somme du pourcentage > 1
+     */
+    class PourcentageException extends Exception {
+        /**
+         * Constructeur d'exception
+         * @param message le message d'erreur
+         */
+        PourcentageException(final String message) {
         super(message);
         }
     }
