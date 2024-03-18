@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author elisajean
  */
-public class PortefeuilleTest {
+class PortefeuilleTest {
     /**
      * client correct.
     */
@@ -20,7 +20,7 @@ public class PortefeuilleTest {
      * test le constructeur, le constructeur doit fonctionner.
     */
      @Test
-    protected final void testConstructorParametersAreCorrectSuccess() {
+    final void testConstructorParametersAreCorrectSuccess() {
         //Arrange
         final Portefeuille portefeuille = new Portefeuille(CLIENT);
 
@@ -34,5 +34,24 @@ public class PortefeuilleTest {
                 .getNom(), "Basic construction");
         Assertions.assertEquals(expectedPrenomClient, portefeuille.getClient()
                 .getPrenom(), "Basic construction");
+    }
+    /**
+     * teste l'ajout de fonds dans le solde espèces, il doit fonctionner.
+    */
+     @Test
+    final void testAddFundsInCompteEspece() {
+        //Arrange
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        final double valeurAttendueDansPorteuille = 12;
+        final double valeurAjouteeDansPortefeuille = 12;
+        //Action
+        try {
+            portefeuille
+                    .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        } catch (Exception e) {
+        }
+        //Assert
+        Assertions.assertEquals(valeurAttendueDansPorteuille, portefeuille
+                .getSoldeEspece(), "Ajout basique dans le portefeuille");
     }
 }

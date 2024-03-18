@@ -15,11 +15,11 @@ public class Client {
     /**
      * constante fixe pour le calcul du hashcode.
     */
-    private final int valeur = 3;
+    private static final int VALEUR = 3;
     /**
      * constante multiplicatrice pour le calcul du hashcode.
     */
-    private final int multiplicateur = 42;
+    private static final int MULTIPLICATEUR = 42;
     /**
      * nom du client.
     */
@@ -76,9 +76,9 @@ public class Client {
     */
     @Override
     public final int hashCode() {
-        int hash = this.valeur;
-        hash = this.multiplicateur * hash + Objects.hashCode(this.nom);
-        hash = this.multiplicateur * hash + Objects.hashCode(this.prenom);
+        int hash = VALEUR;
+        hash = MULTIPLICATEUR * hash + Objects.hashCode(this.nom);
+        hash = MULTIPLICATEUR * hash + Objects.hashCode(this.prenom);
         return hash;
     }
 
