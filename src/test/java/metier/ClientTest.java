@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author elisajean
  */
-public class ClientTest {
+class ClientTest {
     /**
      * nom du client correct.
     */
@@ -25,7 +25,7 @@ public class ClientTest {
      * test le constructeur, le constructeur doit fonctionner.
     */
      @Test
-    protected final void testConstructorParametersAreCorrectSuccess() {
+    final void testConstructorParametersAreCorrectSuccess() {
         //Arrange
         final Client client = new Client(NOM_OK, PRENOM);
 

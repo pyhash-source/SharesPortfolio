@@ -6,6 +6,7 @@
 package metier;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -15,11 +16,11 @@ public class Portefeuille {
     /**
      * constante fixe pour le calcul du hashcode.
     */
-    private final int valeur = 3;
+    private static final int VALEUR = 3;
     /**
      * constante multiplicatrice pour le calcul du hashcode.
     */
-    private final int multiplicateur = 42;
+    private static final int MULTIPLICATEUR = 42;
     /**
      * client a qui appartient le portefeuiile.
      */
@@ -28,14 +29,18 @@ public class Portefeuille {
      * liste des actions possédées.
      */
     private HashMap<Action, Integer> actions;
-
+    /**
+     * solde du compte espèce.
+     */
+    private double soldeEspece;
     /**
      * constructeur permettant de creer un portefeuille.
      * @param clientPortefeuille client du portefeuille
     */
     public Portefeuille(final Client clientPortefeuille) {
         this.client = clientPortefeuille;
-        this.actions = new HashMap();
+        this.actions = new HashMap<>();
+        this.soldeEspece = 0;
     }
     /**
      * retourne le client.
@@ -48,16 +53,44 @@ public class Portefeuille {
      * retourne les actions.
      * @return actions
     */
-    public final HashMap<Action, Integer> getActions() {
+    public final Map<Action, Integer> getActions() {
         return actions;
     }
-
+    /**
+     * retourne la valeur actuelle du compte espèces.
+     * @return solde
+    */
+    public final double getSoldeEspece() {
+        return soldeEspece;
+    }
+    /**
+     * crédite le solde espèces du portefeuille.
+     * @param credit valeur à ajouter au solde espèces
+     * @throws Exception si une valeur négative ou nulle est ajoutée au solde
+    */
+    public final void provisionnerSoldeEspeces(final double credit)
+            throws Exception {
+        if (credit > 0) {
+            this.soldeEspece += credit;
+        }
+    }
+    /**
+     * retire de l'argent du solde espèces.
+     * @param retrait valeur à retirer du solde espèces
+     * @throws Exception si une valeur positive ou nulle est retirée du solde
+    */
+    public final void retirerSoldeEspeces(final double retrait)
+            throws Exception {
+        if (retrait <= 0 && (this.soldeEspece - retrait >= 0)) {
+            this.soldeEspece -= retrait;
+        }
+    }
 
     @Override
     public final int hashCode() {
-        int hash = this.valeur;
-        hash = this.multiplicateur * hash + Objects.hashCode(this.client);
-        hash = this.multiplicateur * hash + Objects.hashCode(this.actions);
+        int hash = VALEUR;
+        hash = VALEUR * hash + Objects.hashCode(this.client);
+        hash = VALEUR * hash + Objects.hashCode(this.actions);
         return hash;
     }
 
