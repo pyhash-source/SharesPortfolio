@@ -24,58 +24,61 @@ import metier.ActionComposee.DoubleActionException;
 import metier.ActionComposee.PourcentageException;
 
 /**
- *
- * @author saanw
- */
-
+* Tester class ActionComposee.
+*/
 public class ActionComposeeTest {
-    /**
-     * Travail SetUp
-     * Libéllé de ACTION_SIMPLE_1.
-     */
-    private static final String LIB_ACTION_SIMPLE_1 = "ActionSimple1";
      /**
      * Travail SetUp
      * Construre ActionSimple ACTION_SIMPLE_1.
      */
     private static final ActionSimple ACTION_SIMPLE_1 =
-        new ActionSimple(LIB_ACTION_SIMPLE_1);
-    /**
-     * Travail SetUp
-     * Libéllé de ACTION_COMPOSEE_1.
-     */
-    private static final String LIB_ACTION_COMPOSEE_1 = "ActionComposee1";
-
+        new ActionSimple("ActionSimple1");
     /**
      * Travail SetUp
      * Une ActionComposee vide.
      */
-    private static final ActionComposee ACTION_COMPOSEE_1=new ActionComposee(LIB_ACTION_COMPOSEE_1);
-    private static final String LIB_ACTION_COMPOSEE_2 = "ActionComposee2";
+    private static final ActionComposee ACTION_COMPOSEE_1 =
+            new ActionComposee("ActionComposee1");
     /**
      * Travail SetUp
      * Une ActionComposee vide.
      */
     private static final ActionComposee ACTION_COMPOSEE_2 =
-            new ActionComposee(LIB_ACTION_COMPOSEE_2);
+            new ActionComposee("ActionComposee2");
     /**
      * Travail SetUp
      * Une ActionSimple null.
      */
     private static final ActionSimple ACTION_SIMPLR_NULL = null;
+    /**
+     * Travail SetUp
+     * pourcentage de ActionSimple 10%.
+     */
+    private static final float POURCENTAGE_10 = 0.1f;
+    /**
+     * Travail SetUp
+     * pourcentage de ActionSimple 90%.
+     */
+    private static final float POURCENTAGE_90 = 0.9f;
+    /**
+     * Travail SetUp
+     * pourcentage de ActionSimple 50%.
+     */
+    private static final float POURCENTAGE_50 = 0.5f;
 
     /**
+     * @author Shan
      * Test si une ActionSimple est existé
      * lors de les ajoutée dans une ActionComposée.
      */
     @Test
-    final void testExistanceDeActionSimpleAdded()
-            throws DoubleActionException, PourcentageException {
-        ACTION_COMPOSEE_1.enrgComposition(ACTION_SIMPLE_1, (float)0.90);
+    final void testExistanceDeActionSimpleAdded()throws DoubleActionException {
+        ACTION_COMPOSEE_1.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_90);
         final String expectedMessage = "ActionSimple is null";
         NullPointerException assertThrowsExactly = Assertions
                 .assertThrowsExactly(NullPointerException.class, () -> {
-            ACTION_COMPOSEE_1.enrgComposition(ACTION_SIMPLR_NULL, (float)0.1);
+            ACTION_COMPOSEE_1.
+                    enrgComposition(ACTION_SIMPLR_NULL, POURCENTAGE_10);
         }, "ActionSimple is null");
         final String currentMessage = assertThrowsExactly.getMessage();
         Assertions.assertEquals(
@@ -87,36 +90,29 @@ public class ActionComposeeTest {
      * une exception personnalisée est levée.
     */
     @Test
-    protected void testActionsAddedNotSame()
-            throws DoubleActionException, PourcentageException {
+    final void testActionsAddedNotSame() throws DoubleActionException {
         // Création de cas de test
-        ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, 0.5f);
-        
-        // Si une erreur est générée, vérifiez que l'erreur est la même que celle attendue.
+        ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
+        // Si une erreur est générée, vérifiez
+        //que l'erreur est la même que celle attendue.
         // message attendu
         final String expectedMessage = "Cette action est existe.";
         DoubleActionException assertThrowsExactly = Assertions
                 .assertThrowsExactly(DoubleActionException.class, () -> {
-            ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, 0.5f);
-        },"Cette action est existe.");
-        
+            ACTION_COMPOSEE_2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
+        }, "Cette action est existe.");
         // message d'erreur
         final String currentMessage = assertThrowsExactly.getMessage();
-        
         // verifier si ils sont même
-        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
-      
+        Assertions.assertEquals(expectedMessage, currentMessage,
+                "Expected error message");
     }
-    
-    
     /**
-     * Tester la somme des pourcentages est de 100%
+     * Tester la somme des pourcentages est de 100%.
      */
     @Test
     protected void testSommePourcentage()
         throws DoubleActionException, PourcentageException {
         
-    }
-        
-
+    } 
 }
