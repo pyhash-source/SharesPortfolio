@@ -38,13 +38,24 @@ public class ActionSimple extends Action {
      * @param j jour mois annee
      * @param v valeur du cours
      */
-    public void enrgCours(Jour j, float v) {
+    final void enrgCours(final Jour j, final float v) {
         long milliseconds = System.currentTimeMillis();
+        final int debutJour = 8;
+        final int finJour = 9;
+        final int debutMois = 5;
+        final int finMois = 6;
+        final int debutAnnee = 0;
+        final int finAnnee = 3;
         date.setTime(milliseconds);
-        int jourActuel = Integer.valueOf(date.toString().substring(8, 9));
-        int moisActuel = Integer.valueOf(date.toString().substring(5, 6));
-        int anneeActuel = Integer.valueOf(date.toString().substring(0, 3));
-        
+        int jourActuel;
+        jourActuel = Integer.parseInt(date.toString()
+                        .substring(debutJour, finJour));
+        int moisActuel;
+        moisActuel = Integer.parseInt(date.toString()
+                        .substring(debutMois, finMois));
+        int anneeActuel;
+        anneeActuel = Integer.parseInt(date.toString()
+                .substring(debutAnnee, finAnnee));
         if (anneeActuel <= j.getAnnee()) {
             if (moisActuel <= j.getMois()) {
                 if (jourActuel <= j.getJour()) {
@@ -57,13 +68,15 @@ public class ActionSimple extends Action {
                 }
             }
         }
-        
-
     }
 
-    @Override
-    public float valeur(Jour j) {
-        if (this.mapCours.containsKey(j) == true) {
+    /**
+     * Getter de la valeur pour un jour donne.
+     * @param j jour
+     * @return valeur de l'action
+     */
+    public final float getValeur(final Jour j) {
+        if (this.mapCours.containsKey(j)) {
             return this.mapCours.get(j).getValeur();
         } else {
             return 0; // definition d'une constante possible
@@ -71,15 +84,22 @@ public class ActionSimple extends Action {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.mapCours);
-        hash = 29 * hash + Objects.hashCode(this.date);
+    public final int hashCode() {
+        final int valeur = 29;
+        final int constHash = 7;
+        int hash = constHash;
+        hash = valeur * hash + Objects.hashCode(this.mapCours);
+        hash = valeur * hash + Objects.hashCode(this.date);
         return hash;
     }
 
+    /**
+     * Methode equals.
+     * @param obj objet
+     * @return boolean si c'est un objet
+     */
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -94,5 +114,10 @@ public class ActionSimple extends Action {
             return false;
         }
         return Objects.equals(this.date, other.date);
+    }
+
+    @Override
+    public float valeur(Jour j) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

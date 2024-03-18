@@ -1,18 +1,8 @@
 /*
- * Copyright 2024 David Navarre &lt;David.Navarre at irit.fr&gt;.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+JourTest
+@version 1 18/03/2024
+@copyright Groupe1
+*/
 package metier;
 
 import org.junit.jupiter.api.Assertions;
@@ -43,32 +33,46 @@ public class JourTest {
     }
 
     /**
-     * Methode pour tester si les parametre du constructeur sont valides
+     * Methode pour tester si les parametres du constructeur sont valides
      * et permettent la creation de l'objet.
      */
     @Test
-    protected void testConstructorParametersAreCorrectSuccess() {
+    final void testConstructorParametersAreCorrectSuccess() {
         //Arrange
-        final Jour jour = new Jour(DEFAULT_YEAR,DEFAULT_MONTH, DEFAULT_DAY );
+        final Jour jour;
+        jour = new Jour(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY);
 
         //Action
-        final String expectedToString = "Jour{" + "annee=" + DEFAULT_YEAR + ", noJour=" + DEFAULT_DAY + '}';
+        final String expectedToString;
+        expectedToString = "Jour{"
+                + "annee="
+                + DEFAULT_YEAR
+                + ", mois=" + DEFAULT_MONTH + " , jour=" + DEFAULT_DAY + '}';
         final String currentToString = jour.toString();
 
         //Assert
-        Assertions.assertEquals(expectedToString, currentToString, "Basic construction");
+        Assertions.assertEquals(expectedToString, currentToString,
+                "Basic construction");
     }
-
-    //@Test
-    protected void testConstructorDayIncorrectShouldFail() {
+    
+    /**
+     * Methode pour tester si les parametres du constructeur sont invalides
+     * et bloquent la creation de l'objet.
+     */
+    @Test
+    final void testConstructorDayIncorrectShouldFail() {
         //Arrange
         final String expectedMessage = "0 must not be used as a valid Day";
         //Action and asserts
-        IllegalArgumentException assertThrowsExactly = Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
-            new Jour(DEFAULT_YEAR, INCORRECT_DAY);
-        }, "0 must not be used as a valid Day");
+        IllegalArgumentException assertThrowsExactly;
+        assertThrowsExactly
+                = Assertions.assertThrowsExactly(IllegalArgumentException.class,
+                        () -> {
+                    new Jour(DEFAULT_YEAR, DEFAULT_MONTH, INCORRECT_DAY);
+                }, "0 must not be used as a valid Day");
         final String currentMessage = assertThrowsExactly.getMessage();
-        Assertions.assertEquals(expectedMessage, currentMessage, "Expected error message");
+        Assertions.assertEquals(expectedMessage, currentMessage,
+                "Expected error message");
 
     }
 }

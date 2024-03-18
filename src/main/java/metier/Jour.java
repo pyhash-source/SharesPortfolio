@@ -19,7 +19,7 @@ public class Jour {
     private final int jour;
 
     /**
-     * Recupere la valeur de annee.
+     * Recupere la valeur de l'annee.
      *
      * @return la valeur d'annee.
      */
@@ -28,18 +28,18 @@ public class Jour {
     }
 
     /**
-     * Recupere la valeur de mois.
+     * Recupere la valeur du mois.
      *
-     * @return la valeur de mois.
+     * @return la valeur du mois.
      */
     public final int getMois() {
         return mois;
     }
 
     /**
-     * Recupere la valeur de jour.
+     * Recupere la valeur du jour.
      *
-     * @return la valeur de jour.
+     * @return la valeur du jour.
      */
     public final int getJour() {
         return jour;
@@ -56,16 +56,17 @@ public class Jour {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.annee;
-        hash = 97 * hash + this.mois;
-        hash = 97 * hash + this.jour;
+    public final int hashCode() {
+        final int valeur = 7;
+        int hash = 1;
+        hash = valeur * hash + this.annee;
+        hash = valeur * hash + this.mois;
+        hash = valeur * hash + this.jour;
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -84,7 +85,4 @@ public class Jour {
         }
         return this.jour == other.jour;
     }
-    
-    
-    
 }
