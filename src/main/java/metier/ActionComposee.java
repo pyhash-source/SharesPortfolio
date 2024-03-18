@@ -23,6 +23,9 @@ public class ActionComposee extends Action {
     }
 
     public void enrgComposition(ActionSimple as, float pourcentage) {
+        if (as == null){
+            throw new NullPointerException("ActionSimple is null");
+        }
         this.mapPanier.put(as, pourcentage);
     }
 
