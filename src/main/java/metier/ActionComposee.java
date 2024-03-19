@@ -134,7 +134,7 @@ public class ActionComposee extends Action {
         return hash;
     }
 
-    @Override
+      @Override
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -146,7 +146,20 @@ public class ActionComposee extends Action {
             return false;
         }
         final ActionComposee other = (ActionComposee) obj;
-        return Objects.equals(this.mapPanier, other.mapPanier);
+        if (!this.getLibelle().equals(other.getLibelle())) {
+            return false;
+        }
+        for (Action asimple:this.mapPanier.keySet()) {
+            float pourcentage = this.mapPanier.get(asimple);
+            if (other.mapPanier.containsKey(asimple)) {
+                if (pourcentage != other.mapPanier.get(asimple)) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
