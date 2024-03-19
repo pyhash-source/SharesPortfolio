@@ -6,7 +6,6 @@
 package metier;
 
 import java.util.ArrayList;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
@@ -16,18 +15,41 @@ import org.junit.jupiter.api.Test;
  * @author R&P
  */
 public class MarcheFinancierTest {
-    
+    /**
+    * test le constructeur, le constructeur doit fonctionner.
+    */
     @Test
-    public void testMarcheFinancierConstructor() {
+    final void testMarcheFinancierConstructor() {
         // Arrange
-        MarcheFinancier marcheFinancier;
-
-        // Action
-        marcheFinancier = new MarcheFinancier();
+        MarcheFinancier marcheFinancier = new MarcheFinancier();
 
         // Assert
         assertNotNull(marcheFinancier);
         assertNotNull(marcheFinancier.getActions());
         assertEquals(0, marcheFinancier.getActions().size());
+    }
+
+    /**
+    * test récupération des actions du marché.
+    */
+    @Test
+    final void testGetActions() {
+        ActionSimple action1 = new ActionSimple("Action1");
+        ActionSimple action2 = new ActionSimple("Action2");
+        // Arrange
+        MarcheFinancier marcheFinancier = new MarcheFinancier();
+        ArrayList<Action> expectedActions = new ArrayList<>();
+        expectedActions.add(action1);
+        expectedActions.add(action2);
+
+        // Act
+        marcheFinancier.getActions().add(action1);
+        marcheFinancier.getActions().add(action2);
+
+        // Assert
+        assertNotNull(marcheFinancier);
+        assertEquals(expectedActions.size(), marcheFinancier.getActions()
+                .size());
+
     }
 }
