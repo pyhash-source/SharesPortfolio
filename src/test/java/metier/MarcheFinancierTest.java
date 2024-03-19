@@ -42,7 +42,7 @@ public class MarcheFinancierTest {
         expectedActions.add(action1);
         expectedActions.add(action2);
 
-        // Act
+        // Action
         marcheFinancier.getActions().add(action1);
         marcheFinancier.getActions().add(action2);
 
@@ -51,5 +51,24 @@ public class MarcheFinancierTest {
         assertEquals(expectedActions.size(), marcheFinancier.getActions()
                 .size());
 
+    }
+    /**
+     * test du setter d'une action dans le marche financier.
+     */
+     @Test
+    final void testSetActions() {
+        // Arrange
+        MarcheFinancier marcheFinancier = new MarcheFinancier();
+        ArrayList<Action> expectedActions = new ArrayList<>();
+        ActionSimple action1 = new ActionSimple("Action1");
+
+        // Action
+        expectedActions.add(action1);
+        marcheFinancier.setAction(action1);
+
+        // Assert
+        assertNotNull(marcheFinancier.getActions());
+        assertEquals(expectedActions.size(), marcheFinancier.getActions()
+                .size());
     }
 }
