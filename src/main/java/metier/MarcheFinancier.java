@@ -23,13 +23,14 @@ public class MarcheFinancier {
      * Constructeur par défaut.
      */
     public MarcheFinancier() {
+        this.actions = new ArrayList<>();
     }
 
     /**
      * Getter de la liste des actions.
      * @return actions
      */
-    final ArrayList<Action> getActions() {
+    public final ArrayList<Action> getActions() {
         return actions;
     }
 
@@ -37,7 +38,7 @@ public class MarcheFinancier {
      * Setter de la liste des actions.
      * @param action action à ajouter
      */
-    final void setActions(Action action) {
+    public final void setActions(final Action action) {
         this.actions.add(action);
     }
 }
