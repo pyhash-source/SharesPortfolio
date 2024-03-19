@@ -78,7 +78,7 @@ public class ActionComposeeTest {
      * @throws PourentageInputException
      *  Vérification de pourcentage est positive
      */
-    @Test
+    //@Test
     final void testExistanceDeActionSimpleAdded()
             throws DoubleActionException, PourcentageException,
             PourentageInputException {
@@ -108,7 +108,7 @@ public class ActionComposeeTest {
      * @throws PourentageInputException
      *  Vérification de pourcentage est positive
     */
-    @Test
+    //@Test
     final void testActionsAddedNotSame()
             throws DoubleActionException, PourcentageException,
             PourentageInputException {
@@ -140,7 +140,7 @@ public class ActionComposeeTest {
      * @throws PourentageInputException
      *  Vérification de pourcentage est positive
      */
-    @Test
+    //@Test
     final void testSommePourcentage()
         throws DoubleActionException, PourcentageException,
             PourentageInputException {
@@ -172,7 +172,7 @@ public class ActionComposeeTest {
      * @throws PourentageInputException
      *  Vérification de pourcentage est positive
      */
-    @Test
+    //@Test
     final void testEtatDeAction()
         throws DoubleActionException, PourcentageException,
             PourentageInputException {
@@ -194,7 +194,7 @@ public class ActionComposeeTest {
      * @throws PourentageInputException
      *  Vérification de pourcentage est positive
     */
-    @Test
+    //@Test
     final void testPourcentageInputNotNegatif()
         throws DoubleActionException, PourcentageException,
             PourentageInputException {

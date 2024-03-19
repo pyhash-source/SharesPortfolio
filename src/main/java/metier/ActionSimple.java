@@ -57,6 +57,7 @@ public class ActionSimple extends Action {
      * @param j jour
      * @return valeur de l'action
      */
+    @Override
     public final double getValeur(final Date j) {
         if (this.mapCours.containsKey(j)) {
             return this.mapCours.get(j);

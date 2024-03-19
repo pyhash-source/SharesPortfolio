@@ -38,7 +38,7 @@ public class MarcheFinancier {
      * Setter de la liste des actions.
      * @param action action à ajouter
      */
-    public final void setActions(final Action action) {
+    public final void setAction(final Action action) {
         this.actions.add(action);
     }
 }
