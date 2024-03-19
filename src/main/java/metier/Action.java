@@ -32,8 +32,8 @@ public abstract class Action {
     }
     /**
     * recuperer la valeu de l'action.
-    * @param j date d'ajout du cours
+    * @param jour date d'ajout du cours
     * @return valeur de l'action
     */
-    public abstract double getValeur(final Date j);
+    public abstract double getValeur(final Date jour);
 }

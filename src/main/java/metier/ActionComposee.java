@@ -1,11 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Client.
+ * @version 1 18/03/2024
+ * @copyright Groupe1
  */
 package metier;
 
-import static java.lang.Math.round;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +12,7 @@ import java.util.Objects;
 
 /**
  *
- * @author somebody
+ * @author han shan
  */
 public class ActionComposee extends Action {
     /**
@@ -126,6 +125,7 @@ public class ActionComposee extends Action {
      * @param j une date
      * @return valeurTotal la somme de la valeur de la action
      */
+    @Override
     public final double getValeur(final Date j) {
         Double valeurTotal = 0.0;
         for (ActionSimple actionsimple:this.mapPanier.keySet()) {
@@ -155,48 +155,6 @@ public class ActionComposee extends Action {
         }
         final ActionComposee other = (ActionComposee) obj;
         return Objects.equals(this.mapPanier, other.mapPanier);
-    }
-    /**
-     * Créer la classe interne d'erreur pour l'insertion en double d'une action.
-     * @throws DoubleActionException si action est existe.
-     */
-    class DoubleActionException extends Exception {
-        /**
-         * Constucteur d'exception.
-         * @param message le message d'erreur.
-         */
-        DoubleActionException(final String message) {
-        super(message);
-        }
-    }
-    /**
-     * Créer une classe interne d'erreur pour verifier la somme d'action.
-     * @author han
-     * @throws PourcentageException si la somme du pourcentage > 1.
-     */
-    class PourcentageException extends Exception {
-        /**
-         * Constructeur d'exception.
-         * @param message le message d'erreur.
-         */
-        PourcentageException(final String message) {
-        super(message);
-        }
-    }
-    /**
-     * Créer une classe interne d'erreur pour verifier la somme d'action.
-     * @author han
-     * @throws PourcentageException
-     *  l'exception pour vérifier si le pourcentage est positive
-     */
-    class PourentageInputException extends Exception {
-        /**
-         * Constructeur d'exception.
-         * @param message le message d'erreur.
-         */
-        PourentageInputException(final String message) {
-            super(message);
-        }
     }
 }
 
