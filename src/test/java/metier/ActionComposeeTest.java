@@ -75,6 +75,8 @@ public class ActionComposeeTest {
      *  si'l y a 2 meme actions dans un actionComposee
      * @throws PourcentageException
      *  la somme des pourcentages est de 100%
+     * @throws PourentageInputException
+     *  Vérification de pourcentage est positive
      */
     @Test
     final void testExistanceDeActionSimpleAdded()
@@ -103,6 +105,8 @@ public class ActionComposeeTest {
      *  si'l y a 2 meme actions dans un actionComposee
      * @throws PourcentageException
      *  la somme des pourcentages est de 100%
+     * @throws PourentageInputException
+     *  Vérification de pourcentage est positive
     */
     @Test
     final void testActionsAddedNotSame()
@@ -133,6 +137,8 @@ public class ActionComposeeTest {
      *  si'l y a 2 meme actions dans un actionComposee
      * @throws PourcentageException
      *  la somme des pourcentages est de 100%
+     * @throws PourentageInputException
+     *  Vérification de pourcentage est positive
      */
     @Test
     final void testSommePourcentage()
@@ -163,6 +169,8 @@ public class ActionComposeeTest {
      *  si'l y a 2 meme actions dans un actionComposee
      * @throws PourcentageException
      *  la somme des pourcentages est de 100%
+     * @throws PourentageInputException
+     *  Vérification de pourcentage est positive
      */
     @Test
     final void testEtatDeAction()
