@@ -13,8 +13,11 @@ public class ActionSimple extends Action {
     /** attribut lien.*/
     private Map<Jour, Cours> mapCours;
 
-    // constructeur
-    public ActionSimple(String libelle) {
+    /**
+     * constructeur.
+     * @param libelle
+     */
+    public ActionSimple(final String libelle) {
         // Action simple initialisée comme 1 action
         super(libelle);
         // init spécifique

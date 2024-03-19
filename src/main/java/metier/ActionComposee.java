@@ -5,6 +5,7 @@
  */
 package metier;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -14,8 +15,6 @@ import java.util.Objects;
  * @author somebody
  */
 public class ActionComposee extends Action {
-
-    // attribut lien
     /**
      * la repatition d'action simple dans l'action composée.
      */
@@ -23,19 +22,19 @@ public class ActionComposee extends Action {
     /**
      * l'état de completute du panier d'action.
      */
-    private boolean isFinish = false;
+    private boolean finished = false;
     /**
      * la date de création d'action composée.
      */
-    private Jour dateCreation;
+    private final Date dateCreation;
     /**
      * Hash code basis.
      */
-    private final static int HASH_BASIS = 3;
+    private static final int BASIS = 3;
     /**
      * Hash code multiplicator.
      */
-    private final static int HASH_MULTIPLICATOR = 12;
+    private static final int MULTIPLICATOR = 12;
     /**
      * Constructeur ActionComposee.
      * @param libelle Nom de l'action
@@ -43,6 +42,7 @@ public class ActionComposee extends Action {
     public ActionComposee(final String libelle) {
         super(libelle);
         this.mapPanier = new HashMap();
+        this.dateCreation = new Date();
     }
     /**
      * getter Panier.
@@ -55,37 +55,30 @@ public class ActionComposee extends Action {
      * Setter Panier.
      * @param mapPanierToSet la map panier à enregistrer
      */
-    public final void setMapPanier(final Map<ActionSimple, Float> 
+    public final void setMapPanier(final Map<ActionSimple, Float>
             mapPanierToSet) {
         this.mapPanier = mapPanierToSet;
     }
     /**
      * getter l'etat d'action.
-     * @return isIsFinish l'etat de l'action
+     * @return isFinished l'etat de l'action
      */
-    public final boolean isIsFinish() {
-        return isFinish;
+    public final boolean isFinished() {
+        return finished;
     }
     /**
      * setter l'etat de action.
      * @param isFinishToSet l'état de l'action
      */
-    public final void setIsFinish(final boolean isFinishToSet) {
-        this.isFinish = isFinishToSet;
+    public final void setIsFinished(final boolean isFinishToSet) {
+        this.finished = isFinishToSet;
     }
     /**
      * getter dateCreation.
      * @return date de creation
      */
-    public final Jour getDateCreation() {
+    public final Date getDateCreation() {
         return dateCreation;
-    }
-    /**
-     * setter DateCreation.
-     * @param dateCreationToSet la date de creation
-     */
-    public final void setDateCreation(final Jour dateCreationToSet) {
-        this.dateCreation = dateCreationToSet;
     }
     /**
      * l'insertion d'action simple dans l'action composée.
@@ -94,11 +87,18 @@ public class ActionComposee extends Action {
      * @throws DoubleActionException
      *  si'l y a 2 meme actions dans un actionComposee
      * @throws PourcentageException
-     *  la somme des pourcentages est de 100%
+     * *  la somme des pourcentages est de 100%.
+     * @throws PourentageInputException
+     * verifier Pourcentage input n'est pas negatif.
      */
     public final void enrgComposition(final ActionSimple as,
             final float pourcentage)
-            throws DoubleActionException, PourcentageException {
+            throws DoubleActionException, PourcentageException,
+            PourentageInputException {
+        if (pourcentage < 0) {
+            throw new PourentageInputException(
+                    "Pourcentage input est negatif.");
+        }
         if (as == null) {
             throw new NullPointerException("ActionSimple is null");
         }
@@ -120,29 +120,29 @@ public class ActionComposee extends Action {
             } else if ((somme + pourcentage) == 1) {
                 this.mapPanier.put(as, pourcentage);
                 // Quand total = 1, l'action est complet
-                this.isFinish = true;
+                this.finished = true;
             } else {
                this.mapPanier.put(as, pourcentage);
             }
         }
     }
-
-    @Override
-    public final float valeur(final Jour j) {
-        float valeur;
-
-        valeur = 0;
-        for (ActionSimple as : this.mapPanier.keySet()) {
-            valeur = valeur + (as.valeur(j) * this.mapPanier.get(as));
+    /**
+     * récuperer la valeur de la action composée dans une date.
+     * @param j une date
+     * @return valeurTotal la somme de la valeur de la action
+     */
+    public final double getValeur(final Date j) {
+        Double valeurTotal = 0.0;
+        for (ActionSimple actionsimple:this.mapPanier.keySet()) {
+            valeurTotal += actionsimple.getValeur(j);
         }
-
-        return valeur;
+        return valeurTotal;
     }
 
     @Override
     public final int hashCode() {
         int hash;
-        hash = HASH_BASIS * HASH_MULTIPLICATOR
+        hash = BASIS * MULTIPLICATOR
                 + Objects.hashCode(this.mapPanier);
         return hash;
     }

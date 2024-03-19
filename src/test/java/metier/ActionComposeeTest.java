@@ -78,7 +78,8 @@ public class ActionComposeeTest {
      */
     @Test
     final void testExistanceDeActionSimpleAdded()
-            throws DoubleActionException, PourcentageException {
+            throws DoubleActionException, PourcentageException,
+            PourentageInputException {
         // Création de une action
         ActionComposee actionComposee1 =
             new ActionComposee("ActionComposee1");
@@ -105,7 +106,8 @@ public class ActionComposeeTest {
     */
     @Test
     final void testActionsAddedNotSame()
-            throws DoubleActionException, PourcentageException {
+            throws DoubleActionException, PourcentageException,
+            PourentageInputException {
         // Création de une action
         ActionComposee actionComposee2 =
             new ActionComposee("ActionComposee2");
@@ -134,7 +136,8 @@ public class ActionComposeeTest {
      */
     @Test
     final void testSommePourcentage()
-        throws DoubleActionException, PourcentageException {
+        throws DoubleActionException, PourcentageException,
+            PourentageInputException {
         // Création de une action
         ActionComposee actionComposee3 =
             new ActionComposee("ActionComposee3");
@@ -163,7 +166,8 @@ public class ActionComposeeTest {
      */
     @Test
     final void testEtatDeAction()
-        throws DoubleActionException, PourcentageException {
+        throws DoubleActionException, PourcentageException,
+            PourentageInputException {
         ActionComposee actionComposee4 =
             new ActionComposee("ActionComposee4");
         // Création de cas de test
@@ -171,7 +175,7 @@ public class ActionComposeeTest {
         actionComposee4.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_50);
         // Tester l'etat d'acton
         Assertions.assertEquals(
-                true, actionComposee4.isIsFinish(), "Expected statut");
+                true, actionComposee4.isFinished(), "Expected statut");
     }
     /**
      * Tester la somme des pourcentages est de 100%.
