@@ -239,26 +239,25 @@ public class ActionComposeeTest {
         Assertions.assertFalse(actionComposee17.equals(actionComposee18));
     }
     /**
-     * Tester la methode getValeur
+     * Tester la methode getValeur.
      */
-//    @Test
-//    final void testGetValeur() {
-//        // Creer 2 actions simples et 1 action composee
-//        ActionSimple as1 = new ActionSimple("as1");
-//        ActionSimple as2 = new ActionSimple("as2");
-//        final double coursAs1 = 20.0;
-//        final double coursAs2 = 20.0;
-//        as1.enrgCours(coursAs1);
-//        as2.enrgCours(coursAs2);
-//        // enregistrer la as
-//        ActionComposee actionComposee =
-//                new ActionComposee("actionComposee19");
-//        actionComposee.enrgComposition(as1, POURCENTAGE_50);
-//        actionComposee.enrgComposition(as2, POURCENTAGE_50);
-//        // obtenir la date de as
-//        for (Action as : actionComposee.getMapPanier().keySet()) {
-//            float pourcentage = actionComposee.getMapPanier().get(as);
-//            double valeur
-//        }
-//    }
+    @Test
+    final void testGetValeur() {
+        //Arrange
+        final ActionSimple actionSimple1 = new ActionSimple("as1");
+        final ActionSimple actionSimple2 = new ActionSimple("as2");
+        final double valeurAttendueAujourdhui = 12;
+        final Date dateDuJour = new Date();
+        try {
+           actionSimple1.enrgCours(valeurAttendueAujourdhui);
+           actionSimple2.enrgCours(valeurAttendueAujourdhui);
+        } catch (Exception e) {
+        }
+        ActionComposee actionComposee19 =
+                new ActionComposee("actionComposee19");
+        actionComposee19.enrgComposition(actionSimple1, POURCENTAGE_50);
+        actionComposee19.enrgComposition(actionSimple2, POURCENTAGE_50);
+        Assertions.assertEquals(valeurAttendueAujourdhui,
+                actionComposee19.getValeur(dateDuJour), "Equal");
+    }
 }
