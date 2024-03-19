@@ -5,6 +5,7 @@
  */
 package metier;
 
+import static java.lang.Math.round;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,26 +85,18 @@ public class ActionComposee extends Action {
      * l'insertion d'action simple dans l'action composée.
      * @param as une action simple
      * @param pourcentage le pourcentage de cette action simple
-     * @throws DoubleActionException
-     *  si'l y a 2 meme actions dans un actionComposee
-     * @throws PourcentageException
-     * *  la somme des pourcentages est de 100%.
-     * @throws PourentageInputException
-     * verifier Pourcentage input n'est pas negatif.
+     * @return return l'etat de methode
      */
-    public final void enrgComposition(final ActionSimple as,
-            final float pourcentage)
-            throws DoubleActionException, PourcentageException,
-            PourentageInputException {
+    public final boolean enrgComposition(
+            final ActionSimple as, final float pourcentage) {
         if (pourcentage < 0) {
-            throw new PourentageInputException(
-                    "Pourcentage input est negatif.");
+            return false;
         }
         if (as == null) {
-            throw new NullPointerException("ActionSimple is null");
+            return false;
         }
         if (this.mapPanier.containsKey(as)) {
-            throw new DoubleActionException("Cette action est existe.");
+            return false;
         }
          // verification : somme de pourcentage
         // somme de pourcentage
@@ -115,16 +108,18 @@ public class ActionComposee extends Action {
         if (somme < 1) {
              // verfication: somme + pourcentage > 1 ？
             if ((somme + pourcentage) > 1) {
-                throw new PourcentageException(
-                        "le somme du pourcentage est > 1");
-            } else if ((somme + pourcentage) == 1) {
+                return false;
+            } else if ((somme + pourcentage) == 1.0f) {
                 this.mapPanier.put(as, pourcentage);
                 // Quand total = 1, l'action est complet
                 this.finished = true;
+                return true;
             } else {
                this.mapPanier.put(as, pourcentage);
+               return true;
             }
         }
+        return false;
     }
     /**
      * récuperer la valeur de la action composée dans une date.
