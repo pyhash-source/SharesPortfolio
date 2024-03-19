@@ -18,7 +18,7 @@ public class ActionComposee extends Action {
     /**
      * la repatition d'action simple dans l'action composée.
      */
-    private Map<ActionSimple, Float> mapPanier;
+    private Map<Action, Float> mapPanier;
     /**
      * l'état de completute du panier d'action.
      */
@@ -48,16 +48,8 @@ public class ActionComposee extends Action {
      * getter Panier.
      * @return monPanier le nom du panier
      */
-    public final Map<ActionSimple, Float> getMapPanier() {
+    public final Map<Action, Float> getMapPanier() {
         return mapPanier;
-    }
-    /**
-     * Setter Panier.
-     * @param mapPanierToSet la map panier à enregistrer
-     */
-    public final void setMapPanier(final Map<ActionSimple, Float>
-            mapPanierToSet) {
-        this.mapPanier = mapPanierToSet;
     }
     /**
      * getter l'etat d'action.
@@ -100,8 +92,8 @@ public class ActionComposee extends Action {
          // verification : somme de pourcentage
         // somme de pourcentage
         float somme = 0f;
-        for (ActionSimple actionsimple : this.mapPanier.keySet()) {
-            float pourcentageActionSimple = this.mapPanier.get(actionsimple);
+        for (Action action : this.mapPanier.keySet()) {
+            float pourcentageActionSimple = this.mapPanier.get(action);
             somme += pourcentageActionSimple;
         }
         if (somme < 1) {
@@ -128,8 +120,8 @@ public class ActionComposee extends Action {
     @Override
     public final double getValeur(final Date j) {
         Double valeurTotal = 0.0;
-        for (ActionSimple actionsimple:this.mapPanier.keySet()) {
-            valeurTotal += actionsimple.getValeur(j);
+        for (Action action : this.mapPanier.keySet()) {
+            valeurTotal += action.getValeur(j) * this.mapPanier.get(action);
         }
         return valeurTotal;
     }
@@ -142,7 +134,7 @@ public class ActionComposee extends Action {
         return hash;
     }
 
-    @Override
+      @Override
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
@@ -154,7 +146,21 @@ public class ActionComposee extends Action {
             return false;
         }
         final ActionComposee other = (ActionComposee) obj;
-        return Objects.equals(this.mapPanier, other.mapPanier);
+        if (!this.getLibelle().equals(other.getLibelle())) {
+            return false;
+        }
+        for (Action asimple:this.mapPanier.keySet()) {
+            float pourcentage = this.mapPanier.get(asimple);
+            if (other.mapPanier.containsKey(asimple)) {
+                if (pourcentage != other.mapPanier.get(asimple)) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }
+
 
