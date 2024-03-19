@@ -5,6 +5,7 @@
  */
 package metier;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -66,34 +67,51 @@ public class Portefeuille {
     /**
      * crédite le solde espèces du portefeuille.
      * @param credit valeur à ajouter au solde espèces
-     * @throws Exception si une valeur négative ou nulle est ajoutée au solde
+     * @return retourne true si l'operation s'est bien passée, false sinon
     */
-    public final void provisionnerSoldeEspeces(final double credit)
-            throws Exception {
+    public final boolean provisionnerSoldeEspeces(final double credit) {
         if (credit > 0) {
             this.soldeEspece += credit;
+            return true;
         }
+        return false;
     }
     /**
      * retire de l'argent du solde espèces.
      * @param retrait valeur à retirer du solde espèces
-     * @throws Exception si une valeur positive ou nulle est retirée du solde
+     * @return retourne true si l'operation s'est bien passée, false sinon
     */
-    public final void retirerSoldeEspeces(final double retrait)
-            throws Exception {
-        if (retrait <= 0 && (this.soldeEspece - retrait >= 0)) {
+    public final boolean retirerSoldeEspeces(final double retrait) {
+        if (retrait > 0 && (this.soldeEspece - retrait >= 0)) {
             this.soldeEspece -= retrait;
+            return true;
         }
+        return false;
     }
-
+    public final boolean acheterDesActions(final Action action
+            , final int nombre){
+        Date dateJour = new Date();
+        
+        
+        return false;
+    }
+    /**
+     * retourne l'hashcode du portefeuille.
+     * @return hashcode du portefeuille
+    */
     @Override
     public final int hashCode() {
         int hash = VALEUR;
-        hash = VALEUR * hash + Objects.hashCode(this.client);
-        hash = VALEUR * hash + Objects.hashCode(this.actions);
+        hash = MULTIPLICATEUR * hash + Objects.hashCode(this.client);
+        hash = MULTIPLICATEUR * hash + Objects.hashCode(this.actions);
         return hash;
     }
 
+    /**
+     * retourne si les deux portefeuilles sont les mêmes.
+     * @param obj un objet à comparer
+     * @return booleen
+    */
     @Override
     public final boolean equals(final Object obj) {
         if (this == obj) {
