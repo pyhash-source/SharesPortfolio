@@ -19,7 +19,8 @@ class PortefeuilleTest {
     /**
      * deuxieme client.
     */
-    private static final Client DEUXIEME_CLIENT = new Client("Cueille", "Elisa");
+    private static final Client DEUXIEME_CLIENT = new Client("Cueille",
+            "Elisa");
     /**
      * test le constructeur, le constructeur doit fonctionner.
     */
@@ -40,6 +41,64 @@ class PortefeuilleTest {
                 .getPrenom(), "Basic construction");
     }
     /**
+     * test le get actions.
+    */
+    @Test
+    final void testGetDeActions() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1;
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        portefeuille.acheterDesActions(action, 1);
+        //Assert
+        Assertions.assertTrue(portefeuille.getActions().containsKey(action),
+                "test du get action");
+    }
+    /**
+     * test le get actions.
+    */
+    @Test
+    final void testAchatEchourCarSoldePasSuffisant() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1800000000;
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        boolean success = portefeuille.acheterDesActions(action, 1);
+        //Assert
+        Assertions.assertFalse(success,
+                "test du achat avec solde pas suffisant");
+    }
+    /**
+     * test l'achat actions.
+    */
+    @Test
+    final void testAchatDeuxFoisLaMemeAction() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1;
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        portefeuille.acheterDesActions(action, 1);
+        portefeuille.acheterDesActions(action, 1);
+        //Expected
+        Integer nombreActionAttendu = 2;
+        //Assert
+        Assertions.assertEquals(nombreActionAttendu,
+                portefeuille.getActions().get(action),
+                "test du get action");
+    }
+    /**
      * teste l'ajout de fonds dans le solde espèces, il doit fonctionner.
     */
      @Test
@@ -49,11 +108,9 @@ class PortefeuilleTest {
         final double valeurAttendueDansPorteuille = 12;
         final double valeurAjouteeDansPortefeuille = 12;
         //Action
-        try {
-            portefeuille
-                    .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
-        } catch (Exception e) {
-        }
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+
         //Assert
         Assertions.assertEquals(valeurAttendueDansPorteuille, portefeuille
                 .getSoldeEspece(), "Ajout basique dans le portefeuille");
@@ -139,7 +196,8 @@ class PortefeuilleTest {
         final Portefeuille portefeuille = new Portefeuille(CLIENT);
         //Assert
         Assertions
-                .assertTrue(portefeuille.equals(portefeuille), "test du equals self");
+                .assertTrue(portefeuille.equals(portefeuille),
+                        "test du equals self");
     }
     /**
      * test du equals null.
@@ -151,7 +209,8 @@ class PortefeuilleTest {
         final Object object = null;
         //Assert
         Assertions
-                .assertFalse(portefeuille.equals(object), "test du equals null");
+                .assertFalse(portefeuille.equals(object),
+                        "test du equals null");
     }
     /**
      * test du equals different classe.
