@@ -59,7 +59,7 @@ class PortefeuilleTest {
                 "test du get action");
     }
     /**
-     * test le get actions.
+     * test l achat avec un solde pas suffisant.
     */
     @Test
     final void testAchatEchourCarSoldePasSuffisant() {
@@ -77,7 +77,7 @@ class PortefeuilleTest {
                 "test du achat avec solde pas suffisant");
     }
     /**
-     * test l'achat actions.
+     * test quand l'on achete deux fois la meme action.
     */
     @Test
     final void testAchatDeuxFoisLaMemeAction() {
@@ -99,6 +99,28 @@ class PortefeuilleTest {
                 "test du get action");
     }
     /**
+     * test la recuperation de la valeur du portefeuille.
+    */
+    @Test
+    final void testRecuperationValeurPortefeuille() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1;
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        portefeuille.acheterDesActions(action, 1);
+        portefeuille.acheterDesActions(action, 1);
+        //Expected
+        double valeurPortefeuilleAttendue = valeurCours * 2;
+        //Assert
+        Assertions.assertEquals(valeurPortefeuilleAttendue,
+                portefeuille.valeurDuPortefeuille(),
+                "test du get action");
+    }
+    /**
      * teste l'ajout de fonds dans le solde espèces, il doit fonctionner.
     */
      @Test
@@ -116,10 +138,10 @@ class PortefeuilleTest {
                 .getSoldeEspece(), "Ajout basique dans le portefeuille");
     }
     /**
-     * test le get actions.
+     * test la vente reussie des actions.
     */
     @Test
-    final void testVenteActionsReussit() {
+    final void testVenteActionsReussie() {
         //Arrange
         final double valeurAjouteeDansPortefeuille = 12;
         final double valeurCours = 1;
@@ -138,6 +160,26 @@ class PortefeuilleTest {
         Assertions.assertEquals(nombreActionsAttendu,
                 portefeuille.getActions().get(action),
                 "Succès de la suppression des actions");
+    }
+    /**
+     * test la vente non reussie des actions.
+    */
+    @Test
+    final void testVenteActionsNonReussie() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1;
+
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        portefeuille.acheterDesActions(action, 1);
+        boolean venteSucces = portefeuille.vendreDesActions(action, 2);
+        //Assert
+        Assertions.assertFalse(venteSucces, "test du non succès de l'opération "
+                + "de vente");
     }
     /**
      * teste l'ajout de fonds dans le solde espèces, doit echouer.
