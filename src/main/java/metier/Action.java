@@ -14,7 +14,6 @@ import java.util.Objects;
 public abstract class Action {
 
     private String libelle;
-//Coucou
     /**
      * Get the value of libelle
      * 
