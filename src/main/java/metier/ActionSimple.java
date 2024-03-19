@@ -91,6 +91,6 @@ public class ActionSimple extends Action {
             return false;
         }
         final ActionSimple other = (ActionSimple) obj;
-        return Objects.equals(this.mapCours, other.mapCours);
+        return Objects.equals(this.getLibelle(), other.getLibelle());
     }
 }

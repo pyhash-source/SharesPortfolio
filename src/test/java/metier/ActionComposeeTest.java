@@ -20,9 +20,6 @@ package metier;
 //import metier.ActionComposee;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import metier.ActionComposee.DoubleActionException;
-import metier.ActionComposee.PourcentageException;
-import metier.ActionComposee.PourentageInputException;
 
 /**
 * Tester class ActionComposee.
@@ -75,148 +72,65 @@ public class ActionComposeeTest {
     /**
      * @author Shan
      * Test si une ActionSimple est existé
-     * lors de les ajoutée dans une ActionComposée.
-     * @throws DoubleActionException
-     *  si'l y a 2 meme actions dans un actionComposee
-     * @throws PourcentageException
-     *  la somme des pourcentages est de 100%
-     * @throws PourentageInputException
-     *  Vérification de pourcentage est positive
      */
     @Test
-    final void testExistanceDeActionSimpleAdded()
-            throws DoubleActionException, PourcentageException,
-            PourentageInputException {
+    final void testExistanceDeActionSimpleAdded() {
         // Création de une action
         ActionComposee actionComposee1 =
             new ActionComposee("ActionComposee1");
         // Création de cas de test
-        actionComposee1.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_90);
-        final String expectedMessage = "ActionSimple is null";
-        NullPointerException assertThrowsExactly = Assertions
-                .assertThrowsExactly(NullPointerException.class, () -> {
-            actionComposee1.
-                    enrgComposition(ACTION_SIMPLR_NULL, POURCENTAGE_10);
-        }, "ActionSimple is null");
-        final String currentMessage = assertThrowsExactly.getMessage();
-        Assertions.assertEquals(
-                expectedMessage, currentMessage, "Expected error message");
+        Assertions.assertFalse(actionComposee1.enrgComposition(
+                ACTION_SIMPLR_NULL, POURCENTAGE_90));
     }
     /**
      * @author han
      * Test: Si deux actions identiques sont ajoutées,
-     * une exception personnalisée est levée.
-     * @throws DoubleActionException
-     *  si'l y a 2 meme actions dans un actionComposee
-     * @throws PourcentageException
-     *  la somme des pourcentages est de 100%
-     * @throws PourentageInputException
-     *  Vérification de pourcentage est positive
     */
     @Test
-    final void testActionsAddedNotSame()
-            throws DoubleActionException, PourcentageException,
-            PourentageInputException {
+    final void testActionsAddedNotSame() {
         // Création de une action
         ActionComposee actionComposee2 =
             new ActionComposee("ActionComposee2");
         // Création de cas de test
         actionComposee2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
         // Si une erreur est générée, vérifiez
-        //que l'erreur est la même que celle attendue.
-        // message attendu
-        final String expectedMessage = "Cette action est existe.";
-        DoubleActionException assertThrowsExactly = Assertions
-                .assertThrowsExactly(DoubleActionException.class, () -> {
-            actionComposee2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
-        }, "Cette action est existe.");
-        // message d'erreur
-        final String currentMessage = assertThrowsExactly.getMessage();
-        // verifier si ils sont même
-        Assertions.assertEquals(expectedMessage, currentMessage,
-                "Expected error message");
+        Assertions.assertFalse(actionComposee2.enrgComposition(
+                ACTION_SIMPLE_1, POURCENTAGE_50));
     }
     /**
      * Tester la somme des pourcentages est de 100%.
-     * @throws DoubleActionException
-     *  si'l y a 2 meme actions dans un actionComposee
-     * @throws PourcentageException
-     *  la somme des pourcentages est de 100%
-     * @throws PourentageInputException
-     *  Vérification de pourcentage est positive
      */
     @Test
-    final void testSommePourcentage()
-        {
+    final void testSommePourcentage() {
         // Création de une action
         ActionComposee actionComposee3 =
             new ActionComposee("ActionComposee3");
         // Création de cas de test
-        try {
-            actionComposee3.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_20);
-        } catch (Exception e) {
-            e.printStackTrace();
+        actionComposee3.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_50);
+        Assertions.assertFalse(actionComposee3.enrgComposition(
+            ACTION_SIMPLE_1, POURCENTAGE_90));
         }
-        
-        // Si une erreur est générée, vérifiez que
-        // l'erreur est la même que celle attendue.
-        // message attendu
-        final String expectedMessage = "le somme du pourcentage est > 1";
-        PourcentageException assertThrowsExactly = Assertions
-                .assertThrowsExactly(PourcentageException.class, () -> {
-            actionComposee3.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_90);
-        }, "le somme du pourcentage est > 1");
-        // message d'erreur
-        final String currentMessage = assertThrowsExactly.getMessage();
-        // verifier si ils sont même
-        Assertions.assertEquals(
-                expectedMessage, currentMessage, "Expected error message");
-    }
     /**
      * Tester Quand le pourcentage est 100%, l'etat d'action est true.
-     * @throws DoubleActionException
-     *  si'l y a 2 meme actions dans un actionComposee
-     * @throws PourcentageException
-     *  la somme des pourcentages est de 100%
-     * @throws PourentageInputException
-     *  Vérification de pourcentage est positive
      */
     @Test
-    final void testEtatDeAction()
-        throws DoubleActionException, PourcentageException,
-            PourentageInputException {
+    final void testEtatDeAction() {
         ActionComposee actionComposee4 =
             new ActionComposee("ActionComposee4");
         // Création de cas de test
         actionComposee4.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
-        actionComposee4.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_50);
         // Tester l'etat d'acton
-        Assertions.assertEquals(
-                true, actionComposee4.isFinished(), "Expected statut");
+        Assertions.assertTrue(actionComposee4.enrgComposition(
+                ACTION_SIMPLE_2, POURCENTAGE_50));
     }
     /**
      * Tester la somme des pourcentages est de 100%.
-     * @throws DoubleActionException
-     *  si'l y a 2 meme actions dans un actionComposee
-     * @throws PourcentageException
-     *  la somme des pourcentages est de 100%
-     * @throws PourentageInputException
-     *  Vérification de pourcentage est positive
     */
     @Test
-    final void testPourcentageInputNotNegatif()
-        throws DoubleActionException, PourcentageException,
-            PourentageInputException {
-        ActionComposee actionC = new ActionComposee("ActionComposee4");
-        final String expectedMessage = "Pourcentage input est negatif.";
-        PourentageInputException assertThrowsExactly =
-                Assertions.assertThrowsExactly(PourentageInputException.class,
-                        () -> { actionC.enrgComposition(
-                                ACTION_SIMPLE_1, POURCENTAGE_NEGATIF);
-                               }, "Pourentage input est negatif.");
-        // message d'erreur
-        // verifier si ils sont même
-        final String currentMessage = assertThrowsExactly.getMessage();
-        Assertions.assertEquals(expectedMessage, currentMessage,
-                "Expected error message"); }
+    final void testPourcentageInputNotNegatif() {
+        ActionComposee actionC = new ActionComposee("ActionComposee");
+        // verifier l'etat de la methode
+         Assertions.assertFalse(actionC.enrgComposition(
+                 ACTION_SIMPLE_1, POURCENTAGE_NEGATIF));
+      }
 }
