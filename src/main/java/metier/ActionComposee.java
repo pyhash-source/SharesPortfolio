@@ -198,14 +198,5 @@ public class ActionComposee extends Action {
             super(message);
         }
     }
-    /*public final double getValeur(final Date j) {
-        double d;
-        if ( j != null) {
-           d = 2.09;
-        } else {
-            d = 4.0;
-        }
-    return d;
-    }*/
 }
 

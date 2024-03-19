@@ -91,14 +91,14 @@ public class Portefeuille {
     /**
      *
      * @param action action voulant être achetee
-     * @param nombre nombre de l'action voulant etre acheter
+     * @param nombre nombre de l'action voulant etre achetee
      * @return le resultat de l'operation: true commit, false pas d'opération
      */
     public final boolean acheterDesActions(final Action action,
             final int nombre) {
         Date dateJour = new Date();
         Double montantTotal = nombre * action.getValeur(dateJour);
-        if (this.soldeEspece >= montantTotal) {
+        if (this.soldeEspece >= montantTotal && nombre > 0) {
             this.soldeEspece -= montantTotal;
             if (this.actions.containsKey(action)) {
                 this.actions.put(action, this.actions.get(action) + nombre);
@@ -108,6 +108,37 @@ public class Portefeuille {
             return true;
         }
         return false;
+    }
+    /**
+     *
+     * @param action action voulant être vendue
+     * @param nombre nombre de l'action voulant etre vendue
+     * @return le resultat de l'operation: true commit, false pas d'opération
+     */
+    public final boolean vendreDesActions(final Action action,
+            final int nombre) {
+        Date dateJour = new Date();
+        if (this.actions.containsKey(action)
+                && nombre > 0 && nombre <= this.actions.get(action)) {
+            Double valeurACrediter = nombre * action.getValeur(dateJour);
+            this.actions.put(action, this.actions.get(action) - nombre);
+            this.soldeEspece += valeurACrediter;
+            return true;
+        }
+        return false;
+    }
+     /**
+     *
+     * @return valeur du portefeuille
+     */
+    public final double valeurDuPortefeuille() {
+        Date dateDuJour = new Date();
+        double valorisationTotale = 0;
+        for (Action action : this.actions.keySet()) {
+            valorisationTotale += action.getValeur(dateDuJour)
+                    * this.actions.get(action);
+        }
+        return valorisationTotale;
     }
     /**
      * retourne l'hashcode du portefeuille.
