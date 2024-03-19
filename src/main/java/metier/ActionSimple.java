@@ -14,12 +14,18 @@ import java.util.Objects;
  *
  * @author R&P
  */
-public class ActionSimple extends Action {
+public class ActionSimple extends Action { 
+    /**
+    * constante fixe pour le calcul du hashcode.
+    */
+    private static final int VALEUR = 3;
+    /**
+    * constante multiplicatrice pour le calcul du hashcode.
+    */
+    private static final int MULTIPLICATEUR = 42;
 
     /** attribut mapping du cours selon les jours. */
-    private final Map<Jour, Cours> mapCours;
-    /** attribut date du jour. */
-    private final Date date;
+    private final Map<Date, Double> mapCours;
 
     /** Constructeur ActionSimple.
      *
@@ -29,44 +35,22 @@ public class ActionSimple extends Action {
         // Action simple initialisée comme 1 action
         super(libelle);
         // init spécifique
-        date = new Date();
         this.mapCours = new HashMap<>();
     }
 
     /** enregistrement du cours pour un jour.
      *
-     * @param j jour mois annee
-     * @param v valeur du cours
+     * @param valeur valeur du cours
      */
-    final void enrgCours(final Jour j, final float v) {
-        long milliseconds = System.currentTimeMillis();
-        final int debutJour = 8;
-        final int finJour = 9;
-        final int debutMois = 5;
-        final int finMois = 6;
-        final int debutAnnee = 0;
-        final int finAnnee = 3;
-        date.setTime(milliseconds);
-        int jourActuel;
-        jourActuel = Integer.parseInt(date.toString()
-                        .substring(debutJour, finJour));
-        int moisActuel;
-        moisActuel = Integer.parseInt(date.toString()
-                        .substring(debutMois, finMois));
-        int anneeActuel;
-        anneeActuel = Integer.parseInt(date.toString()
-                .substring(debutAnnee, finAnnee));
-        if (anneeActuel <= j.getAnnee()) {
-            if (moisActuel <= j.getMois()) {
-                if (jourActuel <= j.getJour()) {
-                    if (v <= 0 || this.mapCours.containsKey(j)) {
-                        System.out.println("Il y a déjà une valeur pour "
-                                + "ce jour");
-                    } else {
-                        this.mapCours.put(j, new Cours(j, v));
-                    }
-                }
-            }
+    public final void enrgCours(final double valeur) {
+        Date date = new Date();
+        if (this.mapCours.containsKey(date)) {
+            System.out.println("Il y a déjà une valeur pour "
+            + "ce jour");
+        } else if (valeur <= 0) {
+            System.out.println("la valeur ne peut pas être négative");
+        } else {
+            this.mapCours.put(date, valeur);
         }
     }
 
@@ -75,9 +59,9 @@ public class ActionSimple extends Action {
      * @param j jour
      * @return valeur de l'action
      */
-    public final float getValeur(final Jour j) {
+    public final double getValeur(final Date j) {
         if (this.mapCours.containsKey(j)) {
-            return this.mapCours.get(j).getValeur();
+            return this.mapCours.get(j);
         } else {
             return 0; // definition d'une constante possible
         }
@@ -85,11 +69,8 @@ public class ActionSimple extends Action {
 
     @Override
     public final int hashCode() {
-        final int valeur = 29;
-        final int constHash = 7;
-        int hash = constHash;
-        hash = valeur * hash + Objects.hashCode(this.mapCours);
-        hash = valeur * hash + Objects.hashCode(this.date);
+        int hash = VALEUR;
+        hash = MULTIPLICATEUR * hash + Objects.hashCode(this.mapCours);
         return hash;
     }
 
@@ -110,15 +91,6 @@ public class ActionSimple extends Action {
             return false;
         }
         final ActionSimple other = (ActionSimple) obj;
-        if (!Objects.equals(this.mapCours, other.mapCours)) {
-            return false;
-        }
-        return Objects.equals(this.date, other.date);
-    }
-
-    @Override
-    public float valeur(Jour j) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-
+        return Objects.equals(this.mapCours, other.mapCours);
     }
 }
