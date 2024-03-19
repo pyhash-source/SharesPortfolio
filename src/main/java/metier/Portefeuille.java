@@ -1,80 +1,132 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Portefeuille
+ * @version 1 18/03/2024
+ * @copyright Groupe1
  */
 package metier;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- *
- * @author somebody
+ * @author elisajean
  */
 public class Portefeuille {
-
-    Map<Action, LignePortefeuille> mapLignes;
-
-    private class LignePortefeuille {
-
-        private Action action;
-
-        private int qte;
-
-        public int getQte() {
-            return qte;
+    /**
+     * constante fixe pour le calcul du hashcode.
+    */
+    private static final int VALEUR = 3;
+    /**
+     * constante multiplicatrice pour le calcul du hashcode.
+    */
+    private static final int MULTIPLICATEUR = 42;
+    /**
+     * client a qui appartient le portefeuiile.
+     */
+    private final Client client;
+    /**
+     * liste des actions possédées.
+     */
+    private HashMap<Action, Integer> actions;
+    /**
+     * solde du compte espèce.
+     */
+    private double soldeEspece;
+    /**
+     * constructeur permettant de creer un portefeuille.
+     * @param clientPortefeuille client du portefeuille
+    */
+    public Portefeuille(final Client clientPortefeuille) {
+        this.client = clientPortefeuille;
+        this.actions = new HashMap<>();
+        this.soldeEspece = 0;
+    }
+    /**
+     * retourne le client.
+     * @return client
+    */
+    public final Client getClient() {
+        return client;
+    }
+    /**
+     * retourne les actions.
+     * @return actions
+    */
+    public final Map<Action, Integer> getActions() {
+        return actions;
+    }
+    /**
+     * retourne la valeur actuelle du compte espèces.
+     * @return solde
+    */
+    public final double getSoldeEspece() {
+        return soldeEspece;
+    }
+    /**
+     * crédite le solde espèces du portefeuille.
+     * @param credit valeur à ajouter au solde espèces
+     * @return retourne true si l'operation s'est bien passée, false sinon
+    */
+    public final boolean provisionnerSoldeEspeces(final double credit) {
+        if (credit > 0) {
+            this.soldeEspece += credit;
+            return true;
         }
-
-        public void setQte(int qte) {
-            this.qte = qte;
+        return false;
+    }
+    /**
+     * retire de l'argent du solde espèces.
+     * @param retrait valeur à retirer du solde espèces
+     * @return retourne true si l'operation s'est bien passée, false sinon
+    */
+    public final boolean retirerSoldeEspeces(final double retrait) {
+        if (retrait > 0 && (this.soldeEspece - retrait >= 0)) {
+            this.soldeEspece -= retrait;
+            return true;
         }
-
-        public Action getAction() {
-            return this.action;
-        }
-
-        public LignePortefeuille(Action action, int qte) {
-            this.action = action;
-            this.qte = qte;
-        }
-
-        public String toString() {
-            return Integer.toString(qte);
-        }
+        return false;
+    }
+    public final boolean acheterDesActions(final Action action
+            , final int nombre){
+        Date dateJour = new Date();
+        
+        
+        return false;
+    }
+    /**
+     * retourne l'hashcode du portefeuille.
+     * @return hashcode du portefeuille
+    */
+    @Override
+    public final int hashCode() {
+        int hash = VALEUR;
+        hash = MULTIPLICATEUR * hash + Objects.hashCode(this.client);
+        hash = MULTIPLICATEUR * hash + Objects.hashCode(this.actions);
+        return hash;
     }
 
-    public Portefeuille() {
-        this.mapLignes = new HashMap();
-    }
-
-    public void acheter(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == false) {
-            this.mapLignes.put(a, new LignePortefeuille(a, q));
-        } else {
-            this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() + q);
+    /**
+     * retourne si les deux portefeuilles sont les mêmes.
+     * @param obj un objet à comparer
+     * @return booleen
+    */
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
         }
-    }
-
-    public void vendre(Action a, int q) {
-        if (this.mapLignes.containsKey(a) == true) {
-            if (this.mapLignes.get(a).getQte() > q) {
-                this.mapLignes.get(a).setQte(this.mapLignes.get(a).getQte() - q);
-            } else if (this.mapLignes.get(a).getQte() == q) {
-                this.mapLignes.remove(a);
-            }
+        if (obj == null) {
+            return false;
         }
-    }
-
-    public String toString() {
-        return this.mapLignes.toString();
-    }
-
-    public float valeur(Jour j) {
-        float total = 0;
-        for (LignePortefeuille lp : this.mapLignes.values()) {
-            total = total + (lp.getQte() * lp.getAction().valeur(j));
+        if (getClass() != obj.getClass()) {
+            return false;
         }
-        return total;
+        final Portefeuille other = (Portefeuille) obj;
+        if (!Objects.equals(this.client, other.client)) {
+            return false;
+        }
+        return Objects.equals(this.actions, other.actions);
     }
 }
