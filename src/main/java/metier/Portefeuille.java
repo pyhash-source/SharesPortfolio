@@ -29,7 +29,7 @@ public class Portefeuille {
     /**
      * liste des actions possédées.
      */
-    private HashMap<Action, Integer> actions;
+    private final HashMap<Action, Integer> actions;
     /**
      * solde du compte espèce.
      */
@@ -88,11 +88,25 @@ public class Portefeuille {
         }
         return false;
     }
-    public final boolean acheterDesActions(final Action action
-            , final int nombre){
+    /**
+     *
+     * @param action action voulant être achetee
+     * @param nombre nombre de l'action voulant etre acheter
+     * @return le resultat de l'operation: true commit, false pas d'opération
+     */
+    public final boolean acheterDesActions(final Action action,
+            final int nombre) {
         Date dateJour = new Date();
-        
-        
+        Double montantTotal = nombre * action.getValeur(dateJour);
+        if (this.soldeEspece >= montantTotal) {
+            this.soldeEspece -= montantTotal;
+            if (this.actions.containsKey(action)) {
+                this.actions.put(action, this.actions.get(action) + nombre);
+            } else {
+                this.actions.put(action, nombre);
+            }
+            return true;
+        }
         return false;
     }
     /**

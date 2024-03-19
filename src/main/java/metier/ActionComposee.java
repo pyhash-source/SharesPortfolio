@@ -5,6 +5,7 @@
  */
 package metier;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,5 +25,14 @@ public class ActionComposee extends Action {
 
     public void enrgComposition(ActionSimple as, float pourcentage) {
         this.mapPanier.put(as, pourcentage);
+    }
+    public final double getValeur(final Date j) {
+        double d;
+        if ( j != null) {
+           d = 2.09;
+        } else {
+            d = 4.0;
+        }
+    return d;
     }
 }

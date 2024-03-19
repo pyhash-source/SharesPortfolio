@@ -1,56 +1,39 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Portefeuille
+ * @version 1 18/03/2024
+ * @copyright Groupe1
  */
 package metier;
 
-import java.util.Objects;
+import java.util.Date;
 
 /**
  *
- * @author somebody
+ * @author elisa jean
  */
 public abstract class Action {
-
-    private String libelle;
-//Coucou
     /**
-     * Get the value of libelle
-     * 
-     * @return the value of libelle
-     */
-    public String getLibelle() {
+    * libelle de l'action.
+    */
+    private final String libelle;
+    /**
+     * donne le libelle de l'action.
+    * @return libelle de l'action.
+    */
+    public final String getLibelle() {
         return libelle;
     }
-
-    public Action(String libelle) {
-        this.libelle = libelle;
+    /**
+     * creer une action.
+     * @param libelleAction libelle de l'action
+    */
+    public Action(final String libelleAction) {
+        this.libelle = libelleAction;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.libelle);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Action other = (Action) obj;
-        if (!Objects.equals(this.libelle, other.libelle)) {
-            return false;
-        }
-        return true;
-    }
-
-    public String toString() {
-        return this.getLibelle();
-    }
+    /**
+    * recuperer la valeu de l'action.
+    * @param j date d'ajout du cours
+    * @return valeur de l'action
+    */
+    public abstract double getValeur(final Date j);
 }
