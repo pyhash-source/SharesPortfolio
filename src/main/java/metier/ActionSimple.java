@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @author R&P
  */
-public class ActionSimple extends Action { 
+public class ActionSimple extends Action {
     /**
     * constante fixe pour le calcul du hashcode.
     */
@@ -44,11 +44,9 @@ public class ActionSimple extends Action {
      */
     public final void enrgCours(final double valeur) {
         Date date = new Date();
-        if (this.mapCours.containsKey(date)) {
-            System.out.println("Il y a déjà une valeur pour "
-            + "ce jour");
-        } else if (valeur <= 0) {
+        if (valeur <= 0) {
             System.out.println("la valeur ne peut pas être négative");
+            this.mapCours.put(date, 0.);
         } else {
             this.mapCours.put(date, valeur);
         }
@@ -91,6 +89,6 @@ public class ActionSimple extends Action {
             return false;
         }
         final ActionSimple other = (ActionSimple) obj;
-        return Objects.equals(this.mapCours, other.mapCours);
+        return Objects.equals(this.getLibelle(), other.getLibelle());
     }
 }
