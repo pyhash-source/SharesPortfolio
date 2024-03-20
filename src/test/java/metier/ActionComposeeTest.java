@@ -1,23 +1,10 @@
 /*
- * Copyright 2024 saanw.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * ActionSimpleTest
+ * @version 1 19/03/2024
+ * @copyright Groupe1
  */
-
-
 package metier;
 
-//import metier.ActionComposee;
 import java.util.Date;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
@@ -207,7 +194,8 @@ public class ActionComposeeTest {
         ActionComposee actionComposee14 = null;
         Assertions.assertFalse(actionComposee10.equals(actionComposee14));
         // objet n'est pas le même class
-        Assertions.assertFalse(actionComposee10.equals(new ActionSimple("as")));
+        Object obj = new Object();
+        Assertions.assertFalse(actionComposee10.equals(obj));
         // Vérifier si les deux AC 10 et 11 sont les mêmes
         Assertions.assertFalse(actionComposee10.equals(actionComposee11));
         // Ajouter les AS dans la AC
