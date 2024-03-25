@@ -208,6 +208,7 @@ class PortefeuilleTest {
         final double valeurAjouteeDansPortefeuille = 12;
         final double valeurCours = 1;
         final int nombreDeVentes = -1;
+        final int nombreAchat = 1;
 
 
         ActionSimple action = new ActionSimple("FCB");
@@ -215,6 +216,7 @@ class PortefeuilleTest {
         final Portefeuille portefeuille = new Portefeuille(CLIENT);
         portefeuille
             .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        portefeuille.acheterDesActions(action, nombreAchat);
         boolean venteAction = portefeuille.vendreDesActions(action,
                 nombreDeVentes);
         //Assert
