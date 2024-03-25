@@ -119,8 +119,9 @@ public class Portefeuille {
     public final boolean vendreDesActions(final Action action,
             final int nombre) {
         Date dateJour = new Date();
-        if (this.actions.containsKey(action)
-                && nombre > 0 && nombre <= this.actions.get(action)) {
+        if ((this.actions.containsKey(action))
+                && (nombre > 0)
+                && (nombre <= this.actions.get(action))) {
             Double valeurACrediter = nombre * action.getValeur(dateJour);
             this.actions.put(action, this.actions.get(action) - nombre);
             this.soldeEspece += valeurACrediter;
