@@ -92,8 +92,8 @@ public class ActionComposee extends Action {
          // verification : somme de pourcentage
         // somme de pourcentage
         float somme = 0f;
-        for (Action action : this.mapPanier.keySet()) {
-            float pourcentageAction = this.mapPanier.get(action);
+        for (Map.Entry<Action, Float> entry : this.mapPanier.entrySet()) {
+            float pourcentageAction = entry.getValue();
             somme += pourcentageAction;
         }
         if (somme < 1) {
@@ -120,9 +120,12 @@ public class ActionComposee extends Action {
     @Override
     public final double getValeur(final Date j) {
         Double valeurTotal = 0.0;
-        for (Action action : this.mapPanier.keySet()) {
-            valeurTotal += action.getValeur(j) * this.mapPanier.get(action);
+        for (Map.Entry<Action, Float> entry : this.mapPanier.entrySet()) {
+            Action action = entry.getKey();
+            float pourcentageAction = entry.getValue();
+            valeurTotal += action.getValeur(j) * pourcentageAction;
         }
+
         return valeurTotal;
     }
 
