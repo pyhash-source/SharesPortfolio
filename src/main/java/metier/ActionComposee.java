@@ -41,7 +41,7 @@ public class ActionComposee extends Action {
      */
     public ActionComposee(final String libelle) {
         super(libelle);
-        this.mapPanier = new HashMap();
+        this.mapPanier = new HashMap<>();
         this.dateCreation = new Date();
     }
     /**

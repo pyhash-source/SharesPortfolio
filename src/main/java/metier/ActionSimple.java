@@ -45,7 +45,6 @@ public class ActionSimple extends Action {
     public final void enrgCours(final double valeur) {
         Date date = new Date();
         if (valeur <= 0) {
-            System.out.println("la valeur ne peut pas être négative");
             this.mapCours.put(date, 0.);
         } else {
             this.mapCours.put(date, valeur);

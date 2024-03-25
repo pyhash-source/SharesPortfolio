@@ -124,8 +124,9 @@ class ClientTest {
         //Arrange
         final Client client = new Client(NOM, PRENOM);
         //Assert
+        boolean equalsSelf = client.equals(client);
         Assertions
-                .assertTrue(client.equals(client), "test du equals self");
+                .assertTrue(equalsSelf);
     }
     /**
      * test du equals null.
@@ -136,8 +137,9 @@ class ClientTest {
         final Client client = new Client(NOM, PRENOM);
         final Object object = null;
         //Assert
+        boolean equalsNull = client.equals(object);
         Assertions
-                .assertFalse(client.equals(object), "test du equals null");
+                .assertFalse(equalsNull);
     }
     /**
      * test du equals different classe.
@@ -148,9 +150,9 @@ class ClientTest {
         final Client client = new Client(NOM, PRENOM);
         Object obj = new Object();
         //Assert
+        boolean equalsDiffClass = client.equals(obj);
         Assertions
-                .assertFalse(client.equals(obj),
-                        "test du equals autre classe");
+                .assertFalse(equalsDiffClass);
     }
     /**
      * test du equals differents clients.
@@ -161,9 +163,9 @@ class ClientTest {
         final Client client1 = new Client(NOM, PRENOM);
         final Client client2 = new Client(DEUXIEME_NOM, DEUXIEME_PRENOM);
         //Assert
+        boolean equalsDiffClient = client1.equals(client2);
         Assertions
-                .assertFalse(client1.equals(client2),
-                        "test du equals autre classe");
+                .assertFalse(equalsDiffClient);
     }
     /**
      * test du equals client vraiment le même.
@@ -174,9 +176,9 @@ class ClientTest {
         final Client client1 = new Client(NOM, PRENOM);
         final Client client2 = new Client(NOM, PRENOM);
         //Assert
+        boolean equalsMemeClient = client1.equals(client2);
         Assertions
-                .assertTrue(client1.equals(client2),
-                        "test du equals même client");
+                .assertTrue(equalsMemeClient);
     }
 }
 
