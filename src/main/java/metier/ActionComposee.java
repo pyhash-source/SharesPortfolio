@@ -152,8 +152,9 @@ public class ActionComposee extends Action {
         if (!this.getLibelle().equals(other.getLibelle())) {
             return false;
         }
-        for (Action action:this.mapPanier.keySet()) {
-            float pourcentage = this.mapPanier.get(action);
+        for (Map.Entry<Action, Float> entry : this.mapPanier.entrySet()) {
+            Action action = entry.getKey();
+            float pourcentage = entry.getValue();
             if (other.mapPanier.containsKey(action)) {
                 if (pourcentage != other.mapPanier.get(action)) {
                     return false;
