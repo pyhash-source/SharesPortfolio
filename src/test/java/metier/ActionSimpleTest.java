@@ -121,9 +121,9 @@ class ActionSimpleTest {
         //Arrange
         final ActionSimple actionSimple = new ActionSimple(ACTION1);
         //Assert
+        boolean equalsSelf = actionSimple.equals(actionSimple);
         Assertions
-                .assertTrue(actionSimple.equals(actionSimple),
-                        "test du equals self");
+                .assertTrue(equalsSelf);
     }
 
     /**
@@ -135,9 +135,9 @@ class ActionSimpleTest {
         final ActionSimple actionSimple = new ActionSimple(ACTION1);
         final Object object = null;
         //Assert
+        boolean equalsNull = actionSimple.equals(object);
         Assertions
-                .assertFalse(actionSimple.equals(object),
-                        "test du equals null");
+                .assertFalse(equalsNull);
     }
 
     /**
@@ -149,9 +149,9 @@ class ActionSimpleTest {
         final ActionSimple actionSimple = new ActionSimple(ACTION1);
         Object obj = new Object();
         //Assert
+        boolean equalsDiffClass = actionSimple.equals(obj);
         Assertions
-                .assertFalse(actionSimple.equals(obj),
-                        "test du equals autre classe");
+                .assertFalse(equalsDiffClass);
     }
 
     /**
@@ -163,9 +163,9 @@ class ActionSimpleTest {
         final ActionSimple actionSimple1 = new ActionSimple(ACTION1);
         final ActionSimple actionSimple2 = new ActionSimple(ACTION2);
         //Assert
+        boolean equalsDiffClient = actionSimple1.equals(actionSimple2);
         Assertions
-                .assertFalse(actionSimple1.equals(actionSimple2),
-                        "test du equals autre client");
+                .assertFalse(equalsDiffClient);
     }
 
     /**
@@ -177,8 +177,8 @@ class ActionSimpleTest {
         final ActionSimple actionSimple1 = new ActionSimple(ACTION1);
         final ActionSimple actionSimple2 = new ActionSimple(ACTION1);
         //Assert
+        boolean equalsMemeClient = actionSimple1.equals(actionSimple2);
         Assertions
-                .assertTrue(actionSimple1.equals(actionSimple2),
-                        "test du equals même client");
+                .assertTrue(equalsMemeClient);
     }
 }

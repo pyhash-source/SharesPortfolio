@@ -261,9 +261,8 @@ class PortefeuilleTest {
         //Arrange
         final Portefeuille portefeuille = new Portefeuille(CLIENT);
         //Assert
-        Assertions
-                .assertTrue(portefeuille.equals(portefeuille),
-                        "test du equals self");
+        boolean equalsSelf = portefeuille.equals(portefeuille);
+        Assertions.assertTrue(equalsSelf);
     }
     /**
      * test du equals null.
@@ -274,9 +273,9 @@ class PortefeuilleTest {
         final Portefeuille portefeuille = new Portefeuille(CLIENT);
         final Object object = null;
         //Assert
+        boolean equalsNull = portefeuille.equals(object);
         Assertions
-                .assertFalse(portefeuille.equals(object),
-                        "test du equals null");
+                .assertFalse(equalsNull);
     }
     /**
      * test du equals different classe.
@@ -287,9 +286,9 @@ class PortefeuilleTest {
         final Portefeuille portefeuille = new Portefeuille(CLIENT);
         Object obj = new Object();
         //Assert
+        boolean equalsDiffClass = portefeuille.equals(obj);
         Assertions
-                .assertFalse(portefeuille.equals(obj),
-                        "test du equals autre classe");
+                .assertFalse(equalsDiffClass);
     }
     /**
      * test du equals differents portefeuille.
@@ -300,9 +299,9 @@ class PortefeuilleTest {
         final Portefeuille portefeuille1 = new Portefeuille(CLIENT);
         final Portefeuille portefeuille2 = new Portefeuille(DEUXIEME_CLIENT);
         //Assert
+        boolean equalsDiffClient = portefeuille1.equals(portefeuille2);
         Assertions
-                .assertFalse(portefeuille1.equals(portefeuille2),
-                        "test du equals autre classe");
+                .assertFalse(equalsDiffClient);
     }
     /**
      * test du equals portefeuille vraiment le même.
@@ -313,8 +312,8 @@ class PortefeuilleTest {
         final Portefeuille portefeuille1 = new Portefeuille(CLIENT);
         final Portefeuille portefeuille2 = new Portefeuille(CLIENT);
         //Assert
+        boolean equalsMemeClient = portefeuille1.equals(portefeuille2);
         Assertions
-                .assertTrue(portefeuille1.equals(portefeuille2),
-                        "test du equals même portefeuille");
+                .assertTrue(equalsMemeClient);
     }
 }
