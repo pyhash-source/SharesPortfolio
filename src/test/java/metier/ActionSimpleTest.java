@@ -2,6 +2,7 @@
  * ActionSimpleTest
  * @version 1 19/03/2024
  * @copyright Groupe1
+ * licence http://www.apache.org/licenses/LICENSE-2.0
  */
 package metier;
 

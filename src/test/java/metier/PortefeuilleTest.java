@@ -77,6 +77,24 @@ class PortefeuilleTest {
                 "test du achat avec solde pas suffisant");
     }
     /**
+     * test l achat avec un nombre negatif.
+    */
+    @Test
+    final void testAchatEchourCarNombreNegatif() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1800000000;
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        boolean success = portefeuille.acheterDesActions(action, -1);
+        //Assert
+        Assertions.assertFalse(success,
+                "test du achat avec solde pas suffisant");
+    }
+    /**
      * test quand l'on achete deux fois la meme action.
     */
     @Test
