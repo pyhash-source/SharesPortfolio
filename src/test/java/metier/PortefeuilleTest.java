@@ -181,10 +181,10 @@ class PortefeuilleTest {
                 "Succès de la suppression des actions");
     }
     /**
-     * test la vente non reussie des actions.
+     * test la vente non reussie des actions car on ne possede pas l'action.
     */
     @Test
-    final void testVenteActionsNonReussie() {
+    final void venteActionNonPossedee() {
         //Arrange
         final double valeurAjouteeDansPortefeuille = 12;
         final double valeurCours = 1;
@@ -194,10 +194,31 @@ class PortefeuilleTest {
         final Portefeuille portefeuille = new Portefeuille(CLIENT);
         portefeuille
             .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
-        portefeuille.acheterDesActions(action, 1);
-        boolean venteSucces = portefeuille.vendreDesActions(action, 2);
+        boolean venteAction = portefeuille.vendreDesActions(action, 2);
         //Assert
-        Assertions.assertFalse(venteSucces, "test du non succès de l'opération "
+        Assertions.assertFalse(venteAction, "test du non succès de l'opération "
+                + "de vente");
+    }
+    /**
+     * test la vente non reussie des actions car on vend un nombre negatif.
+    */
+    @Test
+    final void testVenteNombreNegatifAction() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1;
+        final int nombreDeVentes = 1;
+
+
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        boolean venteAction = portefeuille.vendreDesActions(action,
+                nombreDeVentes);
+        //Assert
+        Assertions.assertFalse(venteAction, "test du non succès de l'opération "
                 + "de vente");
     }
     /**
