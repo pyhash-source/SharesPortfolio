@@ -134,10 +134,11 @@ public class Portefeuille {
     public final double valeurDuPortefeuille() {
         Date dateDuJour = new Date();
         double valorisationTotale = 0;
-        for (Action action : this.actions.keySet()) {
-            valorisationTotale += action.getValeur(dateDuJour)
-                    * this.actions.get(action);
-        }
+        for (Map.Entry<Action, Integer> entry : this.actions.entrySet()) {
+        Action action = entry.getKey();
+        int quantity = entry.getValue();
+        valorisationTotale += action.getValeur(dateDuJour) * quantity;
+    }
         return valorisationTotale;
     }
     /**
