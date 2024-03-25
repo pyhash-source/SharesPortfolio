@@ -179,53 +179,121 @@ class ActionComposeeTest {
         // Tester si les hashcode sont le même
         Assertions.assertEquals(expectedHashCode, actionComposee9.hashCode());
     }
-     /**
-     * Tester la methode Equals().
+    /**
+     * Test la methode Equals(), objet null a le resultat False.
      */
     @Test
-    final void testEquals() {
-        // Créer un objet ActionComposee10 et 11
-        ActionComposee actionComposee10 =
-                new ActionComposee("actionComposee10");
-        ActionComposee actionComposee11 =
-                new ActionComposee("actionComposee11");
-        // même objet
-        Assertions.assertTrue(actionComposee10.equals(actionComposee10));
-        // objet null
-        ActionComposee actionComposee14 = null;
-        Assertions.assertFalse(actionComposee10.equals(actionComposee14));
+    final void testDuEqualsNull() {
+        // Créer un objet ActionComposee 1 et null
+        ActionComposee actionComposee1 =
+                new ActionComposee("actionComposee1");
+        ActionComposee actionComposee2 = null;
+        // test objet ActionComposee 1 equal 2
+        boolean testDuEqualsNull = actionComposee1.equals(actionComposee2);
+        Assertions.assertFalse(testDuEqualsNull);
+    }
+    /**
+     * Test la methode Equals(), 2 meme objets a le resultat true.
+     */
+    @Test
+    final void testDuEqualsMemeActionComposee() {
+        // Créer un objet ActionComposee1
+        ActionComposee actionComposee1 =
+                new ActionComposee("actionComposee1");
+        // Test objet ActionComposee 1 equal 1
+        boolean testDuEqualsMemeActionComposee =
+                actionComposee1.equals(actionComposee1);
+         Assertions.assertTrue(testDuEqualsMemeActionComposee);
+    }
+    /**
+     * Test la methode Equals(),
+     *  objet n'est pas le même class a le resultat False.
+     */
+    @Test
+    final void testDuEqualsDifferentClass() {
+        // Créer un objet ActionComposee1
+        ActionComposee actionComposee1 =
+                new ActionComposee("actionComposee1");
         // objet n'est pas le même class
         Object obj = new Object();
-        Assertions.assertFalse(actionComposee10.equals(obj));
-        // Vérifier si les deux AC 10 et 11 sont les mêmes
-        Assertions.assertFalse(actionComposee10.equals(actionComposee11));
+        boolean equalsDiffClass = actionComposee1.equals(obj);
+        Assertions.assertFalse(equalsDiffClass);
+    }
+    /**
+     * Test la methode Equals(),
+     *  2 action composee vide mais libelles diffierentes a le resultat false.
+     */
+    @Test
+    final void testDuEqualsDifferentActionComposee() {
+        // Créer un objet ActionComposee 1 et 2
+        ActionComposee actionComposee1 =
+                new ActionComposee("actionComposee1");
+        ActionComposee actionComposee2 =
+                new ActionComposee("actionComposee2");
+        // Vérifier si les deux AC 1 et 2 sont les mêmes
+        boolean testDuEqualsDiffActionComposee =
+                actionComposee1.equals(actionComposee2);
+        Assertions.assertFalse(testDuEqualsDiffActionComposee);
+    }
+    /**
+     * Test la methode Equals(),
+     *  2 action composee avec meme action simple, pourcentage,
+     *  libelle a le resultat True.
+     */
+    @Test
+    final void testDuEqualsMemeActionSimleDansMemeActionComposee() {
+        // Créer un objet ActionComposee 1 et 2
+        ActionComposee actionComposee1 =
+                new ActionComposee("actionComposee1");
+        ActionComposee actionComposee2 =
+                new ActionComposee("actionComposee1");
         // Ajouter les AS dans la AC
         // même libelle et même AS
-        actionComposee11.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
-        actionComposee11.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_10);
-        ActionComposee actionComposee12 =
-                new ActionComposee("actionComposee11");
-        actionComposee12.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
-        actionComposee12.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_10);
+        actionComposee1.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
+        actionComposee1.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_10);
+        actionComposee2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
+        actionComposee2.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_10);
         // Vérifier si les deux AC sont les mêmes
-        Assertions.assertTrue(actionComposee11.equals(actionComposee12));
-        // 2 test equal le cas actions composantes sont identiques
+        boolean testDuEqualsMmActonSimleDansMmActionComposee =
+                actionComposee1.equals(actionComposee2);
+        Assertions.assertTrue(testDuEqualsMmActonSimleDansMmActionComposee);
+    }
+    /**
+     * Test la methode Equals(), 2 action composee avec meme nom
+     *                              mais action simple diff a le resultat False.
+     */
+    @Test
+    final void testDuEqualsDifferentActionSimleDansMemeActionComposee() {
         // mais eff. se diffferent
-        ActionComposee actionComposee15 =
+        ActionComposee actionComposee1 =
                 new ActionComposee("actionComposeeMemeNom");
-        ActionComposee actionComposee16 =
+        ActionComposee actionComposee2 =
                 new ActionComposee("actionComposeeMemeNom");
-        actionComposee15.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_10);
-        actionComposee16.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_10);
-        Assertions.assertFalse(actionComposee15.equals(actionComposee16));
+        actionComposee1.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_10);
+        actionComposee2.enrgComposition(ACTION_SIMPLE_2, POURCENTAGE_10);
+        // Vérifier si les deux AC sont les mêmes
+        boolean testDuEqualsDiffActionSimleDansMmActionComposee =
+                actionComposee1.equals(actionComposee2);
+        Assertions.assertFalse(testDuEqualsDiffActionSimleDansMmActionComposee);
+    }
+    /**
+     *  Test la methode Equals(), 2 AC avec même libelle et AS,
+     *      mais le pourcentage n'est pas le même a le resultat False.
+     */
+    @Test
+    final void testDuEqualsDiffPourcentageActionSimleDansMemeActionComposee() {
         // 2 AC avec même libelle et AS, mais le pourcentage n'est pas le même
-        ActionComposee actionComposee17 =
-                new ActionComposee("actionComposeeMemeNom2");
-        ActionComposee actionComposee18 =
-                new ActionComposee("actionComposeeMemeNom2");
-        actionComposee17.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_10);
-        actionComposee18.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
-        Assertions.assertFalse(actionComposee17.equals(actionComposee18));
+        ActionComposee actionComposee1 =
+                new ActionComposee("actionComposeeMemeNom");
+        ActionComposee actionComposee2 =
+                new ActionComposee("actionComposeeMemeNom");
+        actionComposee1.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_10);
+        actionComposee2.enrgComposition(ACTION_SIMPLE_1, POURCENTAGE_50);
+        // Vérifier si les deux AC sont les mêmes
+        boolean testDuEqualsDiffPourcentageActionSimleDansMmActionComposee =
+                actionComposee1.equals(actionComposee2);
+        Assertions.assertFalse(
+                testDuEqualsDiffPourcentageActionSimleDansMmActionComposee);
     }
     /**
      * Tester la methode getValeur.
