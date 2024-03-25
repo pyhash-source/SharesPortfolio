@@ -12,7 +12,7 @@ import java.util.Objects;
 
 /**
  *
- * @author R&P
+ * @author Raphael Pauline
  */
 public class ActionSimple extends Action {
     /**
