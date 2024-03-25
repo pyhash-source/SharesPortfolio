@@ -207,7 +207,7 @@ class PortefeuilleTest {
         //Arrange
         final double valeurAjouteeDansPortefeuille = 12;
         final double valeurCours = 1;
-        final int nombreDeVentes = 1;
+        final int nombreDeVentes = -1;
 
 
         ActionSimple action = new ActionSimple("FCB");
