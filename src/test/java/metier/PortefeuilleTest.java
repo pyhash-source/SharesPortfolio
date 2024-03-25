@@ -222,6 +222,29 @@ class PortefeuilleTest {
                 + "de vente");
     }
     /**
+     * test la vente non reussie des actions car on vend plus que ce que l'on a.
+    */
+    @Test
+    final void testVendrePluDactionQuePossedees() {
+        //Arrange
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurCours = 1;
+        final int nombreDeVentes = 2;
+
+
+        ActionSimple action = new ActionSimple("FCB");
+        action.enrgCours(valeurCours);
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        portefeuille
+            .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        portefeuille.acheterDesActions(action, 1);
+        boolean venteAction = portefeuille.vendreDesActions(action,
+                nombreDeVentes);
+        //Assert
+        Assertions.assertFalse(venteAction, "test du non succès de l'opération "
+                + "de vente");
+    }
+    /**
      * teste l'ajout de fonds dans le solde espèces, doit echouer.
     */
      @Test
