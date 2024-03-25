@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author R&P
  */
-public class MarcheFinancierTest {
+class MarcheFinancierTest {
     /**
     * test le constructeur, le constructeur doit fonctionner.
     */

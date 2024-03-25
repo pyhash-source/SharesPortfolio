@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author R&P
  */
-public class ActionSimpleTest {
+class ActionSimpleTest {
     /**
      * Lib action1.
      */
