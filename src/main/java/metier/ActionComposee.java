@@ -18,7 +18,7 @@ public class ActionComposee extends Action {
     /**
      * la repatition d'action simple dans l'action composée.
      */
-    private Map<Action, Float> mapPanier;
+    private final Map<Action, Float> mapPanier;
     /**
      * l'état de completute du panier d'action.
      */
@@ -93,8 +93,8 @@ public class ActionComposee extends Action {
         // somme de pourcentage
         float somme = 0f;
         for (Action action : this.mapPanier.keySet()) {
-            float pourcentageActionSimple = this.mapPanier.get(action);
-            somme += pourcentageActionSimple;
+            float pourcentageAction = this.mapPanier.get(action);
+            somme += pourcentageAction;
         }
         if (somme < 1) {
              // verfication: somme + pourcentage > 1 ？
@@ -149,10 +149,10 @@ public class ActionComposee extends Action {
         if (!this.getLibelle().equals(other.getLibelle())) {
             return false;
         }
-        for (Action asimple:this.mapPanier.keySet()) {
-            float pourcentage = this.mapPanier.get(asimple);
-            if (other.mapPanier.containsKey(asimple)) {
-                if (pourcentage != other.mapPanier.get(asimple)) {
+        for (Action action:this.mapPanier.keySet()) {
+            float pourcentage = this.mapPanier.get(action);
+            if (other.mapPanier.containsKey(action)) {
+                if (pourcentage != other.mapPanier.get(action)) {
                     return false;
                 }
             } else {
