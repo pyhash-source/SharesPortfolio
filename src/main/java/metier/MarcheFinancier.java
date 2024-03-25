@@ -7,6 +7,7 @@ MarcheFinancier
 package metier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,7 +31,7 @@ public class MarcheFinancier {
      * Getter de la liste des actions.
      * @return actions
      */
-    public final ArrayList<Action> getActions() {
+    public final List<Action> getActions() {
         return actions;
     }
 

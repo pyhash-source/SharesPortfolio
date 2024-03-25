@@ -27,7 +27,7 @@ public abstract class Action {
      * creer une action.
      * @param libelleAction libelle de l'action
     */
-    public Action(final String libelleAction) {
+    protected Action(final String libelleAction) {
         this.libelle = libelleAction;
     }
     /**

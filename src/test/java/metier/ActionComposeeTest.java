@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 /**
 * Tester class ActionComposee.
 */
-public class ActionComposeeTest {
+class ActionComposeeTest {
      /**
      * Travail SetUp
      * Construre ActionSimple ACTION_SIMPLE_1.
