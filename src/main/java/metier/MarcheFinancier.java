@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author R&P
+ * @author Raphael Pauline
  */
 public class MarcheFinancier {
 

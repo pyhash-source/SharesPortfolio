@@ -241,6 +241,27 @@ class PortefeuilleTest {
         Assertions.assertFalse(successRetrait);
     }
     /**
+     * teste le retrait du compte especes, retrait negatif.
+    */
+     @Test
+    final void testRetirerSoldeEspecesRetraitNegatifFail() {
+        //Arrange
+        final Portefeuille portefeuille = new Portefeuille(CLIENT);
+        final double valeurAjouteeDansPortefeuille = 12;
+        final double valeurARetirerDuPortefeuille = -22;
+        final double valeurAttenduePortefeuille = 12;
+
+        //Action
+        boolean successProvisionner = portefeuille
+                .provisionnerSoldeEspeces(valeurAjouteeDansPortefeuille);
+        boolean successRetrait = portefeuille
+                .retirerSoldeEspeces(valeurARetirerDuPortefeuille);
+        Assertions.assertEquals(valeurAttenduePortefeuille,
+                portefeuille.getSoldeEspece(), "test fail du retrait");
+        Assertions.assertTrue(successProvisionner);
+        Assertions.assertFalse(successRetrait);
+    }
+    /**
      * test du hashcode.
     */
     @Test

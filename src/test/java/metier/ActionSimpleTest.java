@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author R&P
+ * @author Raphael Pauline
  */
 class ActionSimpleTest {
     /**
